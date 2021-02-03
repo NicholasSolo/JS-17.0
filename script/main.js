@@ -38,7 +38,7 @@ function getExpensesMonth() {
     compulsoryExpenses.push(prompt("Введите обязательную статью расходов?"));
 
     for (let j; !isNumber(j); ) {
-      j = prompt("Во сколько это обойдется?");
+      j = prompt("Во сколько это обойдется?");    //можно было сделать и через do..while, но пока делал, увидел в общем чате обсуждение и решение, поэтому попробовал сделать иначе
       console.log("j:", j);
       if (isNumber(j)) {
         sum += +j;
