@@ -5,7 +5,7 @@ function isNumber(number) {
 }
 
 function guessNumber() {
-  let number = 34;
+  const number = Math.ceil(Math.random() * (1 - 100) + 100);
 
   function guessNumberInner() {
     let userAnswer = prompt("Угадайте число от 1 до 100!", "");
