@@ -13,13 +13,13 @@ function start() {
 }
 start();
 
-let appData = {
+const appData = {
   budget: money,
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
   income: {},
-  addINcome: [],
+  addIncome: [],
   expenses: {},
   addExpenses: [],
   deposit: false,
@@ -34,55 +34,49 @@ let appData = {
     this.deposit = confirm("Есть ли у Вас депозит в банке?");
 
     for (let i = 0; i < 2; i++) {
-      let compulsoryExpense = prompt("Введите обязательную статью расходов?");
-      let compulsoryExpenseCost;
+      const compulsoryExpense = prompt("Введите обязательную статью расходов?");
 
       let temp = 0;
       do {
         temp = prompt("Во сколько это обойдется?");
       } while (!isNumber(temp));
-      if (isNumber(temp)) {
-        compulsoryExpenseCost = +temp;
-      }
 
-      this.expenses[compulsoryExpense] = compulsoryExpenseCost;
+      this.expenses[compulsoryExpense] = temp;
     }
   },
 
   getExpensesMonth() {
-    let sum = 0;
     for (let key in this.expenses) {
-      sum += this.expenses[key];
+      this.expensesMonth += +this.expenses[key];
     }
-    this.expensesMonth = sum;
     console.log("Сумма расходов за месяц:", this.expensesMonth);
   },
 
   getBudget() {
     this.budgetMonth = this.budget - this.expensesMonth;
-    this.budgetDay = Math.ceil(this.budgetMonth /30);
+    this.budgetDay = Math.ceil(this.budgetMonth / 30);
   },
 
   getTargetMonth() {
-    let period = Math.ceil(this.mission / this.budgetMonth);
-    if (period > 0) {
-      console.log (`Цель будет достигнута за ${period} месяца(-ев)`);
-    } else {
-      console.log ("Цель не будет достигнута");
+    const period = Math.ceil(this.mission / this.budgetMonth);
+    if (period < 0 || period === Infinity) {
+      console.log("Цель не будет достигнута");
+    } else if (period > 0) {
+      console.log(`Цель будет достигнута за ${period} месяца(-ев)`);
     }
   },
 
   getStatusIncome() {
     if (this.budgetDay >= 1200) {
-      console.log ("У Вас высокий уровень дохода");
+      console.log("У Вас высокий уровень дохода");
     } else if (this.budgetDay >= 600) {
-      console.log ("У Вас средний уровень дохода");
+      console.log("У Вас средний уровень дохода");
     } else if (this.budgetDay <= 600) {
-      console.log ("К сожалению, у Вас уровень дохода ниже среднего");
+      console.log("К сожалению, у Вас уровень дохода ниже среднего");
     } else if (this.budgetDay <= 0) {
-      console.log ("Что-то пошло не так");
+      console.log("Что-то пошло не так");
     } else {
-      console.log ("Ошибка");
+      console.log("Ошибка");
     }
   },
 };
@@ -95,14 +89,5 @@ appData.getStatusIncome();
 
 console.log("Наша программа включает в себя данные: ");
 for (let key in appData) {
-  console.log( key,'-', appData[key]);
+  console.log(key, "-", appData[key]);
 }
-
-
-
-
-
-
-
-
-
