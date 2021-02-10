@@ -19,9 +19,9 @@ const targetMonthValueElem = document.getElementsByClassName('target_month-value
 
 
 const monthlyIncomeElem = document.querySelector('.salary-amount');
-const bonusIncomeTitleElem = document.querySelectorAll('.income-title')[1];
+const bonusIncomeTitleElem = document.querySelector('input.income-title[placeholder="Наименование"]');
 const bonusIncomeAmountElem = document.querySelector('.income-amount');
-const compulsoryExpensesTitleElem = document.querySelectorAll('.expenses-title')[1];
+const compulsoryExpensesTitleElem = document.querySelector('input.expenses-title[placeholder="Наименование"]');
 const compulsoryExpensesAmountElem = document.querySelector('.expenses-amount');
 const additionalExpensesNameElem = document.querySelector('.additional_expenses-item');
 const targetAmountElem = document.querySelector('.target-amount');
