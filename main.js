@@ -9,7 +9,6 @@ const todoData = [];
 
 function renderList() {
   todoList.textContent = "";
-  console.log(todoList.textContent);
   todoCompleted.textContent = "";
 
   todoData.forEach((item, index) => {
