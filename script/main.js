@@ -17,11 +17,8 @@ const additionalExpensesValueElem = document.getElementsByClassName('additional_
 const incomePeriodValueElem = document.getElementsByClassName('income_period-value')[0];
 const targetMonthValueElem = document.getElementsByClassName('target_month-value')[0];
 
-
 const monthlyIncomeElem = document.querySelector('.salary-amount');
-// const bonusIncomeTitleElem = document.querySelector('input.income-title');
 let bonusIncomeItems = document.querySelectorAll('.income-items');
-console.log(bonusIncomeItems);
 const compulsoryExpensesTitleElem = document.querySelector('input.expenses-title');
 let expensesItems = document.querySelectorAll('.expenses-items');
 
@@ -33,7 +30,6 @@ const periodAmountElem = document.querySelector('.period-amount');
 function isNumber(number) {
   return !isNaN(parseFloat(number)) && isFinite(number);
 } // Вспомогательная функция проверки на число
-
 
 const appData = {
   budget: 0,
@@ -50,7 +46,10 @@ const appData = {
   moneyDeposit: 0,
   start() {
     
-    appData.budget = +monthlyIncomeElem.value;
+    if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
+      return;
+    } else { appData.budget = +monthlyIncomeElem.value;}
+    
 
     appData.getExpenses();    //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"??
     appData.getBonusIncome();
@@ -68,12 +67,12 @@ const appData = {
     additionalExpensesValueElem.value = this.addExpenses.join(', ');
     additionalIncomeValueElem.value = this.addIncome.join(', ');
     targetMonthValueElem.value = this.getTargetMonth();
-    incomePeriodValueElem.value = +this.calcSavedMoney();
-
+    incomePeriodValueElem.value = this.calcSavedMoney();
+    
     periodRangeElem.addEventListener('input', () => {
-
-      incomePeriodValueElem.value = periodRangeElem.value;
       
+      incomePeriodValueElem.value = this.budgetMonth  * periodRangeElem.value;
+
     });
 
   },
@@ -83,7 +82,6 @@ const appData = {
     expensesItems[0].parentNode.insertBefore(cloneExpensesItems, addCompulsoryExpensesElem);
     
     expensesItems = document.querySelectorAll('.expenses-items');
-    console.log(expensesItems);
     if(expensesItems.length===3) {
       addCompulsoryExpensesElem.style.display = 'none';
     }
@@ -100,11 +98,9 @@ const appData = {
   },
   addBonusIncomeInputsBlock(){
     const cloneBonusIncomeItems = bonusIncomeItems[0].cloneNode(true);
-    console.log('cloneBonusIncomeItems: ', cloneBonusIncomeItems);
     bonusIncomeItems[0].parentNode.insertBefore(cloneBonusIncomeItems, addBonusIncomeElem);
     
     bonusIncomeItems = document.querySelectorAll('.income-items');
-    console.log(bonusIncomeItems);
     if(bonusIncomeItems.length===3) {
       addBonusIncomeElem.style.display = 'none';
     }
@@ -112,9 +108,7 @@ const appData = {
   getBonusIncome() {
     bonusIncomeItems.forEach((item) => {
       const bonusIncomeItem = item.querySelector('.income-title').value;
-      console.log(bonusIncomeItem);
       const bonusIncomeSum = item.querySelector('.income-amount').value;
-      console.log(bonusIncomeSum);
         
       if(bonusIncomeSum !== ''){
         this.bonusIncome += +bonusIncomeSum;
@@ -144,7 +138,6 @@ const appData = {
     for (let key in this.expenses) {
       this.expensesMonth += +this.expenses[key];
     }
-    console.log("Сумма расходов за месяц:", this.expensesMonth);
   },
 
   getBudget() {
@@ -200,29 +193,11 @@ periodRangeElem.addEventListener('input', () => {
 });
 
 
-// appData.getStatusIncome();
-// appData.getInfoDeposit();
-// console.log(appData.calcSavedMoney());
-
-
-
-
-console.log(typeof +periodRangeElem.value);
 
 
 
 
 
-// Вывод addExpenses
 
-// function displayAddExpenses(arr) {
-//   let newStr = [];
-//   for (let key of arr) {
-//     key = key.trim();
-//     newStr.push(key[0].toUpperCase() + key.slice(1));
-//   }
-//   return newStr.join(', ');
-// }
 
-// console.log(displayAddExpenses(appData.addExpenses));
 
