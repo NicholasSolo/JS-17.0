@@ -71,7 +71,7 @@ const appData = {
     
     periodRangeElem.addEventListener('input', () => {
       
-      incomePeriodValueElem.value = this.budgetMonth  * periodRangeElem.value;
+      this.calcSavedMoney();
 
     });
 
@@ -110,7 +110,7 @@ const appData = {
       const bonusIncomeItem = item.querySelector('.income-title').value;
       const bonusIncomeSum = item.querySelector('.income-amount').value;
         
-      if(bonusIncomeSum !== ''){
+      if(bonusIncomeSum !== '' && bonusIncomeItem !== ''){
         this.bonusIncome += +bonusIncomeSum;
       }
     });
