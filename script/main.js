@@ -186,10 +186,11 @@ addCompulsoryExpensesElem.addEventListener('click', appData.addExpensesInputsBlo
 addBonusIncomeElem.addEventListener('click', appData.addBonusIncomeInputsBlock);
 periodRangeElem.addEventListener('input', () => {
   periodAmountElem.innerHTML = periodRangeElem.value;
+  incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
 });
 
 periodRangeElem.addEventListener('input', () => {
-  incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
+  
 
 });
 
