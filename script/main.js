@@ -51,7 +51,7 @@ const appData = {
     } else { appData.budget = +monthlyIncomeElem.value;}
     
 
-    appData.getExpenses();    //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"??
+    appData.getExpenses();    //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"?
     appData.getBonusIncome();
     appData.getExpensesMonth();
     appData.getAdditionalExpenses();
@@ -69,11 +69,7 @@ const appData = {
     targetMonthValueElem.value = this.getTargetMonth();
     incomePeriodValueElem.value = this.calcSavedMoney();
     
-    periodRangeElem.addEventListener('input', () => {
-      
-      this.calcSavedMoney();
-
-    });
+    
 
   },
   addExpensesInputsBlock () {
@@ -192,9 +188,10 @@ periodRangeElem.addEventListener('input', () => {
   periodAmountElem.innerHTML = periodRangeElem.value;
 });
 
+periodRangeElem.addEventListener('input', () => {
+  incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
 
-
-
+});
 
 
 
