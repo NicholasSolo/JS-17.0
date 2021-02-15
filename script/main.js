@@ -189,10 +189,6 @@ periodRangeElem.addEventListener('input', () => {
   incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
 });
 
-periodRangeElem.addEventListener('input', () => {
-  
-
-});
 
 
 
