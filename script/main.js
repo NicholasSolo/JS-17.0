@@ -1,6 +1,6 @@
 "use strict";
 
-const allTextInputs = document.querySelectorAll('input[type="text"]');
+const allTextInputs = document.querySelectorAll('input[type="text"]'); // доп. переменная для работы с input [type="text"]
 
 const calculateElem = document.getElementById('start');
 const cancelElem = document.getElementById('cancel');
