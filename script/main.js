@@ -67,9 +67,21 @@ const appData = {
   reset(){
     calculateElem.style.display = 'block';
     cancelElem.style.display = 'none';
-    periodRangeElem.value = 0;
-    periodAmountElem.innerHTML = 0;
+    addBonusIncomeElem.removeAttribute('disabled');
+    addCompulsoryExpensesElem.removeAttribute('disabled');
+    periodRangeElem.value = 1;
+    periodAmountElem.innerHTML = periodRangeElem.value;
 
+  for (let i = 1; i < bonusIncomeItems.length; i++) {
+    bonusIncomeItems[i].parentNode.removeChild(bonusIncomeItems[i]);
+    bonusIncomeItems[i].value = '';
+    addBonusIncomeElem.style.display = 'block';
+  }
+  for (let i = 1; i < expensesItems.length; i++) {
+    expensesItems[i].parentNode.removeChild(expensesItems[i]);
+    expensesItems[i].value = '';
+    addCompulsoryExpensesElem.style.display = 'block';
+  }
     [...allTextInputs].forEach((item) => {
       item.value = '';
     });
@@ -235,3 +247,46 @@ periodRangeElem.addEventListener('input', () => {
   periodAmountElem.innerHTML = periodRangeElem.value;
   incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
 });
+
+
+
+AppData.prototype.reset = function (){
+  calculateElem.style.display = 'block';
+  cancelElem.style.display = 'none';
+  addBonusIncomeElem.removeAttribute('disabled');
+  addCompulsoryExpensesElem.removeAttribute('disabled');
+  periodRangeElem.value = 1;
+  periodAmountElem.innerHTML = periodRangeElem.value;
+
+  for (let i = 1; i < bonusIncomeItems.length; i++) {
+    bonusIncomeItems[i].parentNode.removeChild(bonusIncomeItems[i]);
+    bonusIncomeItems[i].value = '';
+    addBonusIncomeElem.style.display = 'block';
+  }
+  for (let i = 1; i < expensesItems.length; i++) {
+    expensesItems[i].parentNode.removeChild(expensesItems[i]);
+    expensesItems[i].value = '';
+    addCompulsoryExpensesElem.style.display = 'block';
+  }
+
+  [...allTextInputs].forEach((item) => {
+    item.value = '';
+  });
+  
+  [...allTextInputs].slice(0,11).forEach((item) => {
+    item.removeAttribute('disabled');
+  });
+
+  this.budget = 0;
+  this.budgetDay = 0;
+  this.budgetMonth = 0;
+  this.expensesMonth = 0;
+  this.income = {};
+  this.bonusIncome = 0;
+  this.addIncome = [];
+  this.expenses = {};
+  this.addExpenses = [];
+  this.deposit = false;
+  this.percentDeposit = 0;
+  this.moneyDeposit = 0;
+};
