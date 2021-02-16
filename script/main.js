@@ -1,6 +1,9 @@
 "use strict";
 
+const allTextInputs = document.querySelectorAll('input[type="text"]');
+
 const calculateElem = document.getElementById('start');
+const cancelElem = document.getElementById('cancel');
 
 const addBonusIncomeElem = document.getElementsByTagName('button')[0];
 const addCompulsoryExpensesElem = document.getElementsByTagName('button')[1];
@@ -48,18 +51,34 @@ const appData = {
     
     if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
       return;
-    } else { appData.budget = +monthlyIncomeElem.value;}
+    } else { this.budget = +monthlyIncomeElem.value;}
     
 
-    appData.getExpenses();    //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"?
-    appData.getBonusIncome();
-    appData.getExpensesMonth();
-    appData.getAdditionalExpenses();
-    appData.getAdditionalIncome();
-    appData.getBudget();
+    this.getExpenses();    //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"?
+    this.getBonusIncome();
+    this.getExpensesMonth();
+    this.getAdditionalExpenses();
+    this.getAdditionalIncome();
+    this.getBudget();
 
-    appData.showResult();
+    this.showResult();
   },
+
+  cancel(){
+    calculateElem.style.display = 'block';
+    cancelElem.style.display = 'none';
+    periodRangeElem.value = 0;
+    periodAmountElem.innerHTML = 0;
+
+    [...allTextInputs].forEach((item) => {
+      item.value = '';
+    });
+    
+    [...allTextInputs].slice(0,11).forEach((item) => {
+      item.removeAttribute('disabled');
+    });
+  },
+
   showResult() {
     budgetMonthValueElem.value = this.budgetMonth;
     budgetDayValueElem.value = this.budgetDay;
@@ -68,9 +87,6 @@ const appData = {
     additionalIncomeValueElem.value = this.addIncome.join(', ');
     targetMonthValueElem.value = this.getTargetMonth();
     incomePeriodValueElem.value = this.calcSavedMoney();
-    
-    
-
   },
   addExpensesInputsBlock () {
     const cloneExpensesItems = expensesItems[0].cloneNode(true);
@@ -181,17 +197,28 @@ const appData = {
     return this.budgetMonth *= periodRangeElem.value;
   },
 };
-calculateElem.addEventListener('click', appData.start);
+
+calculateElem.addEventListener('click', appData.start.bind(appData));
+calculateElem.addEventListener('click', () => {
+  if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
+    return;
+  } else{
+  calculateElem.style.display = 'none';
+  cancelElem.style.display = 'block';
+
+  addBonusIncomeElem.setAttribute('disabled', 'true');
+  addCompulsoryExpensesElem.setAttribute('disabled', 'true');
+
+  [...allTextInputs].slice(0,11).forEach((item) => {
+    item.setAttribute('disabled', 'true');
+  });}
+});
+
+cancelElem.addEventListener('click', appData.cancel.bind(appData));
+
 addCompulsoryExpensesElem.addEventListener('click', appData.addExpensesInputsBlock);
 addBonusIncomeElem.addEventListener('click', appData.addBonusIncomeInputsBlock);
 periodRangeElem.addEventListener('input', () => {
   periodAmountElem.innerHTML = periodRangeElem.value;
   incomePeriodValueElem.value = appData.budgetMonth * periodRangeElem.value;
 });
-
-
-
-
-
-
-
