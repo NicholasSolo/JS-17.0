@@ -17,15 +17,13 @@ DomElement.prototype.generateElem = function () {
     newElem.innerHTML = "fewfewfwf";
     newElem.style.cssText = `height: ${this.height};  width: ${this.width};  background-color: ${this.bg};  font-size: ${this.fontSize}`;
     newElem.style.color = "red";
-
     parent.append(newElem);
-    // console.log(newElem);
   } else if (this.selector[0] === "#") {
     const newElem = document.createElement("div");
     newElem.id = this.selector.slice(0, 1);
     newElem.innerHTML = "fewfewfwf";
-    newElem.style.color = "red";
     newElem.style.cssText = `height: ${this.height};  width: ${this.width};  background-color: ${this.bg};  font-size: ${this.fontSize}`;
+    newElem.style.color = "red";
     parent.append(newElem);
   }
 };
