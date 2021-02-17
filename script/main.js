@@ -13,15 +13,15 @@ DomElement.prototype.generateElem = function () {
 
   if (this.selector[0] === ".") {
     const newElem = document.createElement("div");
-    newElem.classList.add([this.selector.slice(0, 1)]);
-    newElem.innerHTML = "fewfewfwf";
+    newElem.classList.add(this.selector.slice(1));
+    newElem.innerHTML = "Some text";
     newElem.style.cssText = `height: ${this.height};  width: ${this.width};  background-color: ${this.bg};  font-size: ${this.fontSize}`;
     newElem.style.color = "red";
     parent.append(newElem);
   } else if (this.selector[0] === "#") {
     const newElem = document.createElement("div");
-    newElem.id = this.selector.slice(0, 1);
-    newElem.innerHTML = "fewfewfwf";
+    newElem.id = this.selector.slice(1);
+    newElem.innerHTML = "Some text";
     newElem.style.cssText = `height: ${this.height};  width: ${this.width};  background-color: ${this.bg};  font-size: ${this.fontSize}`;
     newElem.style.color = "red";
     parent.append(newElem);
