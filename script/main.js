@@ -1,33 +1,30 @@
 "use strict";
 
-const allTextInputs = document.querySelectorAll('input[type="text"]'); // доп. переменная для работы с input [type="text"]
-
-const calculateElem = document.getElementById('start');
-const cancelElem = document.getElementById('cancel');
-
-const addBonusIncomeElem = document.getElementsByTagName('button')[0];
-const addCompulsoryExpensesElem = document.getElementsByTagName('button')[1];
-
-const depositCheckboxElem = document.querySelector('#deposit-check');
-
-const additionalIncomeInputs = document.querySelectorAll('.additional_income-item');
-
-const budgetMonthValueElem = document.getElementsByClassName('budget_month-value')[0];
-const budgetDayValueElem = document.getElementsByClassName('budget_day-value')[0];
-const expensesMonthValueElem = document.getElementsByClassName('expenses_month-value')[0];
-const additionalIncomeValueElem = document.getElementsByClassName('additional_income-value')[0];
-const additionalExpensesValueElem = document.getElementsByClassName('additional_expenses-value')[0];
-const incomePeriodValueElem = document.getElementsByClassName('income_period-value')[0];
-const targetMonthValueElem = document.getElementsByClassName('target_month-value')[0];
-
-const monthlyIncomeElem = document.querySelector('.salary-amount');
-const bonusIncomeItems = document.querySelectorAll('.income-items');
-const compulsoryExpensesTitleElem = document.querySelector('input.expenses-title');
-const expensesItems = document.querySelectorAll('.expenses-items');
-const additionalExpensesNameElem = document.querySelector('.additional_expenses-item');
-const targetAmountElem = document.querySelector('.target-amount');
-const periodRangeElem = document.querySelector('.period-select');
-const periodAmountElem = document.querySelector('.period-amount');
+const allTextInputs = document.querySelectorAll('input[type="text"]'), // доп. переменная для работы с input [type="text"]
+      calculateElem = document.getElementById('start'),
+      cancelElem = document.getElementById('cancel'),
+      addBonusIncomeElem = document.getElementsByTagName('button')[0],
+      addCompulsoryExpensesElem = document.getElementsByTagName('button')[1],
+      depositCheckboxElem = document.querySelector('#deposit-check'),
+      additionalIncomeInputs = document.querySelectorAll('.additional_income-item'),
+      budgetMonthValueElem = document.getElementsByClassName('budget_month-value')[0],
+      budgetDayValueElem = document.getElementsByClassName('budget_day-value')[0],
+      expensesMonthValueElem = document.getElementsByClassName('expenses_month-value')[0],
+      additionalIncomeValueElem = document.getElementsByClassName('additional_income-value')[0],
+      additionalExpensesValueElem = document.getElementsByClassName('additional_expenses-value')[0],
+      incomePeriodValueElem = document.getElementsByClassName('income_period-value')[0],
+      targetMonthValueElem = document.getElementsByClassName('target_month-value')[0],
+      monthlyIncomeElem = document.querySelector('.salary-amount'),
+      bonusIncomeItems = document.querySelectorAll('.income-items'),
+      compulsoryExpensesTitleElem = document.querySelector('input.expenses-title'),
+      expensesItems = document.querySelectorAll('.expenses-items'),
+      additionalExpensesNameElem = document.querySelector('.additional_expenses-item'),
+      targetAmountElem = document.querySelector('.target-amount'),
+      periodRangeElem = document.querySelector('.period-select'),
+      periodAmountElem = document.querySelector('.period-amount'),
+      depositBankElem = document.querySelector('.deposit-bank'),
+      depositAmountElem = document.querySelector('.deposit-amount'),
+      depositPercentElem = document.querySelector('.deposit-percent');
 
 function isNumber(number) {
   return !isNaN(parseFloat(number)) && isFinite(number);
@@ -60,6 +57,7 @@ class AppData {
     this.getExpensesMonth();
     this.getAdditionalExpenses();
     this.getAdditionalIncome();
+    this.getInfoDeposit();
     this.getBudget();
     this.showResult();
   }
@@ -68,6 +66,8 @@ class AppData {
     cancelElem.style.display = 'none';
     addBonusIncomeElem.removeAttribute('disabled');
     addCompulsoryExpensesElem.removeAttribute('disabled');
+    depositBankElem.removeAttribute('disabled');
+    depositCheckboxElem.removeAttribute('disabled');
     periodRangeElem.value = 1;
     periodAmountElem.innerHTML = periodRangeElem.value;
 
@@ -89,7 +89,7 @@ class AppData {
     [...allTextInputs].slice(0, 11).forEach((item) => {
       item.removeAttribute('disabled');
     });
-
+    
     this.budget = 0;
     this.budgetDay = 0;
     this.budgetMonth = 0;
@@ -180,7 +180,8 @@ class AppData {
     }
   }
   getBudget() {
-    this.budgetMonth = this.budget + this.bonusIncome - this.expensesMonth;
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    this.budgetMonth = this.budget + this.bonusIncome - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   }
   getTargetMonth() {
@@ -203,24 +204,55 @@ class AppData {
       console.log("Ошибка");
     }
   }
-  getInfoDeposit() {
-    if (this.deposit) {
-      this.percentDeposit = prompt("Какой годовой процент?", "5.6");
-      while (!isNumber(this.percentDeposit)) {
-        this.percentDeposit = prompt("Какой годовой процент?", "5.6");
-      }
-
-      this.moneyDeposit = prompt("Какая сумма лежит на депозите?", "15000");
-      while (!isNumber(this.moneyDeposit)) {
-        this.moneyDeposit = prompt("Какая сумма лежит на депозите?", "15000");
-      }
-    }
-  }
   calcSavedMoney() {
     return this.budgetMonth *= periodRangeElem.value;
   }
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.percentDeposit = depositPercentElem.value;
+      this.moneyDeposit = depositAmountElem.value;
+    }
+  }
+  changePercent() {
+      const selectValue = this.value;
+      if (selectValue === 'other') {
+        depositPercentElem.style.display = 'block';
+        depositPercentElem.value = '';
+        this.percentDeposit = depositPercentElem.value;
+          depositPercentElem.addEventListener('change',() => {
+            if (depositPercentElem.value < 0 || depositPercentElem.value > 100 || !isFinite(depositPercentElem.value)) {
+              alert('Укажите корректное значение процентной ставки!');
+              depositPercentElem.value = '';
+              calculateElem.setAttribute("disabled", "true");
+            } else { 
+              calculateElem.removeAttribute("disabled");
+            }
+          });
+      } else { 
+        calculateElem.removeAttribute("disabled");
+        depositPercentElem.value = selectValue;
+        depositPercentElem.style.display = 'none';
+      }
+  }
+  depositHandler() {
+    if (depositCheckboxElem.checked) {
+      depositBankElem.style.display = 'inline-block';
+      depositAmountElem.style.display = 'inline-block';
+      this.deposit = true;
+      depositBankElem.addEventListener('change', this.changePercent);
+    } else { 
+      depositBankElem.style.display = 'none';
+      depositAmountElem.style.display = 'none';
+      depositBankElem.value = '';
+      depositAmountElem.value = '';
+      this.deposit = false;
+      depositBankElem.removeEventListener('change', this.changePercent);
+    }
+  }
+
+  
   eventListeners() {
-    //перенести обработчики
+    //обработчики событий
     calculateElem.addEventListener('click', this.start.bind(this));
     calculateElem.addEventListener('click', () => {
       if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
@@ -231,6 +263,8 @@ class AppData {
 
         addBonusIncomeElem.setAttribute('disabled', 'true');
         addCompulsoryExpensesElem.setAttribute('disabled', 'true');
+        depositBankElem.setAttribute('disabled', 'true');
+        depositCheckboxElem.setAttribute('disabled', 'true');
 
         [...allTextInputs].slice(0, 11).forEach((item) => {
           item.setAttribute('disabled', 'true');
@@ -246,6 +280,8 @@ class AppData {
       periodAmountElem.innerHTML = periodRangeElem.value;
       incomePeriodValueElem.value = this.budgetMonth * periodRangeElem.value;
     });
+
+    depositCheckboxElem.addEventListener('change', this.depositHandler.bind(this));
   }
 }
 
