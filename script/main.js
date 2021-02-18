@@ -224,32 +224,32 @@ AppData.prototype.calcSavedMoney = function() {
 };
 
 AppData.prototype.eventListeners = function () {
-//перенести обработчики
+// обработчики событий
 
-calculateElem.addEventListener('click', this.start.bind(this));
-calculateElem.addEventListener('click', () => {
-  if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
-    return;
-  } else{
-  calculateElem.style.display = 'none';
-  cancelElem.style.display = 'block';
+  calculateElem.addEventListener('click', this.start.bind(this));
+  calculateElem.addEventListener('click', () => {
+    if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
+      return;
+    } else{
+    calculateElem.style.display = 'none';
+    cancelElem.style.display = 'block';
 
-  addBonusIncomeElem.setAttribute('disabled', 'true');
-  addCompulsoryExpensesElem.setAttribute('disabled', 'true');
+    addBonusIncomeElem.setAttribute('disabled', 'true');
+    addCompulsoryExpensesElem.setAttribute('disabled', 'true');
 
-  [...allTextInputs].slice(0,11).forEach((item) => {
-    item.setAttribute('disabled', 'true');
-  });}
-});
+    [...allTextInputs].slice(0,11).forEach((item) => {
+      item.setAttribute('disabled', 'true');
+    });}
+  });
 
-cancelElem.addEventListener('click', this.reset.bind(this));
+  cancelElem.addEventListener('click', this.reset.bind(this));
 
-addCompulsoryExpensesElem.addEventListener('click', this.addExpensesInputsBlock.bind(this));
-addBonusIncomeElem.addEventListener('click', this.addBonusIncomeInputsBlock.bind(this));
-periodRangeElem.addEventListener('input', () => {
-  periodAmountElem.innerHTML = periodRangeElem.value;
-  incomePeriodValueElem.value = this.budgetMonth * periodRangeElem.value;
-});
+  addCompulsoryExpensesElem.addEventListener('click', this.addExpensesInputsBlock.bind(this));
+  addBonusIncomeElem.addEventListener('click', this.addBonusIncomeInputsBlock.bind(this));
+  periodRangeElem.addEventListener('input', () => {
+    periodAmountElem.innerHTML = periodRangeElem.value;
+    incomePeriodValueElem.value = this.budgetMonth * periodRangeElem.value;
+  });
 };
 
 const appData = new AppData();
