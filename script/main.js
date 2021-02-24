@@ -47,12 +47,15 @@ class AppData {
     this.moneyDeposit = 0;
   }
   start() {
+    if(depositCheckboxElem.checked && (depositBankElem.value === '' || depositAmountElem.value === '' || !isFinite(depositAmountElem.value) || depositPercentElem.value === '') ) {
+      return;
+    } 
 
     if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
       return;
     } else { this.budget = +monthlyIncomeElem.value; }
 
-    this.getExpenses(); //почему при вызове this.getExpenses() контекстом оказывается не объект appData, а кнопка "Рассчитать"?
+    this.getExpenses(); 
     this.getBonusIncome();
     this.getExpensesMonth();
     this.getAdditionalExpenses();
@@ -60,6 +63,18 @@ class AppData {
     this.getInfoDeposit();
     this.getBudget();
     this.showResult();
+
+    calculateElem.style.display = 'none';
+    cancelElem.style.display = 'block';
+
+    addBonusIncomeElem.setAttribute('disabled', 'true');
+    addCompulsoryExpensesElem.setAttribute('disabled', 'true');
+    depositBankElem.setAttribute('disabled', 'true');
+    depositCheckboxElem.setAttribute('disabled', 'true');
+
+    [...allTextInputs].slice(0, 11).forEach((item) => {
+      item.setAttribute('disabled', 'true');
+    });
   }
   reset() {
     calculateElem.style.display = 'block';
@@ -102,6 +117,10 @@ class AppData {
     this.deposit = false;
     this.percentDeposit = 0;
     this.moneyDeposit = 0;
+    
+    depositCheckboxElem.checked = false;
+    depositPercentElem.style.display = 'none';
+    this.depositHandler();
   }
   showResult() {
     budgetMonthValueElem.value = this.budgetMonth;
@@ -181,7 +200,7 @@ class AppData {
   }
   getBudget() {
     const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
-    this.budgetMonth = this.budget + this.bonusIncome - this.expensesMonth + monthDeposit;
+    this.budgetMonth = Math.ceil(this.budget + this.bonusIncome - this.expensesMonth + monthDeposit);
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   }
   getTargetMonth() {
@@ -212,26 +231,29 @@ class AppData {
       this.percentDeposit = depositPercentElem.value;
       this.moneyDeposit = depositAmountElem.value;
     }
-  }
+   
+  } 
+  depositPercentValidator() {
+    if (depositPercentElem.value < 0 || depositPercentElem.value > 100 || !isFinite(depositPercentElem.value)) {
+      alert('Укажите корректное значение процентной ставки!');
+      depositPercentElem.value = '';
+      calculateElem.setAttribute("disabled", "true");
+    } else { 
+      calculateElem.removeAttribute("disabled");
+    }
+    }
   changePercent() {
       const selectValue = this.value;
       if (selectValue === 'other') {
         depositPercentElem.style.display = 'block';
         depositPercentElem.value = '';
         this.percentDeposit = depositPercentElem.value;
-          depositPercentElem.addEventListener('change',() => {
-            if (depositPercentElem.value < 0 || depositPercentElem.value > 100 || !isFinite(depositPercentElem.value)) {
-              alert('Укажите корректное значение процентной ставки!');
-              depositPercentElem.value = '';
-              calculateElem.setAttribute("disabled", "true");
-            } else { 
-              calculateElem.removeAttribute("disabled");
-            }
-          });
+        depositPercentElem.addEventListener('input', appData.depositPercentValidator);
       } else { 
         calculateElem.removeAttribute("disabled");
         depositPercentElem.value = selectValue;
         depositPercentElem.style.display = 'none';
+        depositPercentElem.removeEventListener('input', appData.depositPercentValidator);
       }
   }
   depositHandler() {
@@ -254,23 +276,6 @@ class AppData {
   eventListeners() {
     //обработчики событий
     calculateElem.addEventListener('click', this.start.bind(this));
-    calculateElem.addEventListener('click', () => {
-      if (monthlyIncomeElem.value.trim() === '' || isNaN(monthlyIncomeElem.value)) {
-        return;
-      } else {
-        calculateElem.style.display = 'none';
-        cancelElem.style.display = 'block';
-
-        addBonusIncomeElem.setAttribute('disabled', 'true');
-        addCompulsoryExpensesElem.setAttribute('disabled', 'true');
-        depositBankElem.setAttribute('disabled', 'true');
-        depositCheckboxElem.setAttribute('disabled', 'true');
-
-        [...allTextInputs].slice(0, 11).forEach((item) => {
-          item.setAttribute('disabled', 'true');
-        });
-      }
-    });
 
     cancelElem.addEventListener('click', this.reset.bind(this));
 
