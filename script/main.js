@@ -24,7 +24,10 @@ const allTextInputs = document.querySelectorAll('input[type="text"]'), // доп
       periodAmountElem = document.querySelector('.period-amount'),
       depositBankElem = document.querySelector('.deposit-bank'),
       depositAmountElem = document.querySelector('.deposit-amount'),
-      depositPercentElem = document.querySelector('.deposit-percent');
+      depositPercentElem = document.querySelector('.deposit-percent'),
+      sumInputs = document.querySelectorAll('input[placeholder="Сумма"]'),
+      nameInputs = document.querySelectorAll('input[placeholder="Наименование"]');
+
 
 function isNumber(number) {
   return !isNaN(parseFloat(number)) && isFinite(number);
@@ -136,6 +139,7 @@ class AppData {
     Array.from(cloneExpensesItems.children).forEach((item) => {
       item.value = '';
     });
+    console.log(cloneExpensesItems.children);
     expensesItems[0].parentNode.insertBefore(cloneExpensesItems, addCompulsoryExpensesElem);
   
     let checkExpensesItems = document.querySelectorAll('.expenses-items');
@@ -272,7 +276,19 @@ class AppData {
     }
   }
 
-  
+  checkInputValues() {
+    sumInputs.forEach((item) => {
+      item.addEventListener('input',() => {
+        item.value = item.value.replace(/[^\d]/g, '');
+      });
+    });
+
+    nameInputs.forEach((item) => {
+      item.addEventListener('input',() => {
+        item.value = item.value.replace(/[^?!,.а-яА-ЯёЁ\s]/g, '');
+      });
+    });
+  }
   eventListeners() {
     //обработчики событий
     calculateElem.addEventListener('click', this.start.bind(this));
@@ -292,6 +308,7 @@ class AppData {
 
 const appData = new AppData();
 appData.eventListeners();
+appData.checkInputValues();
 
 
 
