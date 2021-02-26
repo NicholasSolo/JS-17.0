@@ -1,4 +1,5 @@
-function showTime() {
+/* eslint-disable eqeqeq */
+const showTime = () => {
     const showHello = document.querySelector(".hello");
     const showDay = document.querySelector(".day");
     const showTime = document.querySelector(".time");
@@ -9,7 +10,7 @@ function showTime() {
     const day = now.toLocaleString("ru", { weekday: "long" });
     const time = now.toLocaleTimeString("en", { hour12: true });
 
-    function daysToNY() {
+    const daysToNY = () => {
         const NY = new Date(now.getFullYear() + 1, 0, 1);
         const daysLeft = String(Math.floor((NY.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
         const lastNumber = daysLeft[daysLeft.length - 1];
@@ -24,9 +25,9 @@ function showTime() {
             dayname = daysLeft + " дней";
         }
         return dayname;
-    }
+    };
 
-    function dayTime(hour) {
+    const dayTime = hour => {
         let helloPhrase;
         if (hour > 0 && hour < 6) {
             helloPhrase = "Доброй ночи!";
@@ -38,12 +39,12 @@ function showTime() {
             helloPhrase = "Добрый вечер!";
         }
         return helloPhrase;
-    }
+    };
 
     showHello.textContent = dayTime(hour);
     showDay.textContent = `Сегодня: ${day[0].toUpperCase() + day.slice(1)}`;
     showTime.textContent = `Текущее время: ${time}`;
     showDaysLeft.textContent = `До нового года осталось ${daysToNY()}`;
-}
+};
 
 setInterval(showTime, 1000);

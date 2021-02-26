@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
 
     //Timer
-    function countTimer(deadline) {
+    const countTimer = deadline => {
         const timerHours = document.getElementById("timer-hours");
         const timerMinutes = document.getElementById("timer-minutes");
         const timerSeconds = document.getElementById("timer-seconds");
@@ -22,15 +22,15 @@ window.addEventListener("DOMContentLoaded", () => {
                 seconds,
             };
         }
-        function addZero(value) {
+        const addZero = value => {
             if (value < 10) {
                 value = "0" + value;
                 return value;
             }
             return value;
-        }
+        };
 
-        function updateClock() {
+        const updateClock = () => {
             const timer = getTimeRemaining();
 
             if (timer.timeRemaining > 0) {
@@ -44,11 +44,11 @@ window.addEventListener("DOMContentLoaded", () => {
             } else {
                 clearInterval(idInterval);
             }
-        }
+        };
 
         const idInterval = setInterval(updateClock, 1000);
 
-    }
+    };
 
     countTimer("1 may 2021");
 });
