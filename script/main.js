@@ -61,19 +61,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
         document.addEventListener("click", event => {
             const target = event.target;
-            if (
-                target.classList.contains("close-btn") ||
-        target.closest(".menu") ||
-        target.matches("menu>ul>li>a")
-            ) {
+            const allMenu = target == menu || menu.contains(target);
+            const closeBtn = target == document.querySelector(".close-btn");
+            const menuOpened = menu.classList.contains("active-menu");
+
+            if (target.classList.contains("close-btn") || target.closest(".menu") || target.matches("menu>ul>li>a") || (!allMenu && !closeBtn && menuOpened)) {
                 menuHandler();
-            } else {
-                const allMenu = target == menu || menu.contains(target);
-                const closeBtn = target == document.querySelector(".close-btn");
-                const menuOpened = menu.classList.contains("active-menu");
-                if (!allMenu && !closeBtn && menuOpened) {
-                    menuHandler();
-                }
             }
         });
     };
@@ -120,8 +113,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //Плавная прокрутка страницы при клике на элементы меню
     const smoothSlide = () => {
-        const anchors = document.querySelectorAll('menu a[href*="#"], a[href="#service-block"]');
-        console.log(anchors);
+        const anchors = document.querySelectorAll(
+            'menu a[href*="#"], a[href="#service-block"]'
+        );
         for (const anchor of anchors) {
             if (!anchor.classList.contains("close-btn")) {
                 anchor.addEventListener("click", event => {
@@ -181,14 +175,13 @@ window.addEventListener("DOMContentLoaded", () => {
             const dotsContainer = document.querySelector(".portfolio-dots");
             for (let i = 0; i < slides.length; i++) {
                 const dot = document.createElement("li");
-                dot.classList.add('dot');
+                dot.classList.add("dot");
                 if (i === 0) {
-                    dot.classList.add('.dot-active');
+                    dot.classList.add("dot-active");
                 }
                 dots.push(dot);
                 dotsContainer.appendChild(dot);
             }
-
         };
         addDots();
 
@@ -220,7 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             const target = event.target;
 
-            if (!target.matches('.portfolio-btn, .dot')) {
+            if (!target.matches(".portfolio-btn, .dot")) {
                 return;
             }
 
@@ -249,14 +242,20 @@ window.addEventListener("DOMContentLoaded", () => {
             nextSlide(dots, currentSlide, "dot-active");
         });
 
-        slider.addEventListener('mouseover', event => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
+        slider.addEventListener("mouseover", event => {
+            if (
+                event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+            ) {
                 stopSlide();
             }
         });
 
-        slider.addEventListener('mouseout', event => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
+        slider.addEventListener("mouseout", event => {
+            if (
+                event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+            ) {
                 startSlide(5000);
             }
         });
@@ -264,6 +263,4 @@ window.addEventListener("DOMContentLoaded", () => {
         startSlide(5000);
     };
     slider();
-
-
 });
