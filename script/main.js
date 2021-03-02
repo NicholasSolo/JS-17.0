@@ -263,4 +263,98 @@ window.addEventListener("DOMContentLoaded", () => {
         startSlide(5000);
     };
     slider();
+
+    //Переключение фото при наведении
+    const switchPhoto = () => {
+        const team = document.querySelector(".command");
+        let source = "";
+        let dataAttr = "";
+        team.addEventListener("mouseover", event => {
+            if (!event.target.matches(".command__photo")) {
+                return;
+            }
+            source = event.target.src;
+            dataAttr = event.target.dataset.img;
+            event.target.src = event.target.dataset.img;
+        });
+        team.addEventListener("mouseout", event => {
+            if (!event.target.matches(".command__photo")) {
+                return;
+            }
+            event.target.src = source;
+            event.target.dataset.img = dataAttr;
+        });
+    };
+    switchPhoto();
+    // Валидация форм
+    const formValidation = () => {
+        const calcInputs = document.querySelectorAll(".calc-item");
+        const phoneInputs = document.querySelectorAll(".form-phone");
+
+        calcInputs.forEach((item, index) => {
+            item.addEventListener('blur', event => {
+                if (index === 0) {
+                    return;
+                }
+                item.value = item.value.replace(/[^\d]/g, '');
+            });
+        });
+        phoneInputs.forEach(item => {
+            item.addEventListener('blur', event => {
+                item.value = item.value.replace(/-(?=-)/, '');
+
+                if (item.value.length > 16) {
+                    item.value = item.value.slice(0, 16);
+                }
+            });
+        });
+
+    // .replace(/[^\d()-]/g, '')
+    };
+    formValidation();
+
+    //Калькулятор
+    const calculator = (price = 100) => {
+        const calcBlock = document.querySelector('.calc-block');
+        const totalValue = document.getElementById('total');
+        const apartmentType = document.querySelector('.calc-type');
+        const daysToComplete = document.querySelector('.calc-day');
+        const roomsNum = document.querySelector('.calc-count');
+        const totalSquare = document.querySelector('.calc-square');
+
+        const countSum = () => {
+            let total = 0;
+            let countValue = 1;
+            let dayValue = 1;
+            const typeValue = apartmentType.value;
+            const squareValue = +totalSquare.value;
+
+            if (roomsNum.value > 1) {
+                countValue += (roomsNum.value - 1) / 10;
+            }
+
+            if (daysToComplete.value && daysToComplete.value < 5) {
+                dayValue *= 2;
+            } else if (daysToComplete.value && daysToComplete.value < 10) {
+                dayValue *= 1.5;
+            }
+
+            if (typeValue && squareValue) {
+                total = price * typeValue * squareValue * countValue * dayValue;
+            }
+
+            totalValue.textContent = total;
+        };
+
+        calcBlock.addEventListener('change', event => {
+            const target = event.target;
+            if (target === apartmentType || target === daysToComplete ||
+             target === roomsNum || target === totalSquare) {
+                countSum();
+            }
+        });
+    };
+    calculator(100);
+
 });
+
