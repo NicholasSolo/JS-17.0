@@ -139,7 +139,7 @@ class AppData {
     Array.from(cloneExpensesItems.children).forEach((item) => {
       item.value = '';
     });
-    console.log(cloneExpensesItems.children);
+    
     expensesItems[0].parentNode.insertBefore(cloneExpensesItems, addCompulsoryExpensesElem);
   
     let checkExpensesItems = document.querySelectorAll('.expenses-items');
@@ -277,17 +277,16 @@ class AppData {
   }
 
   checkInputValues() {
-    sumInputs.forEach((item) => {
-      item.addEventListener('input',() => {
-        item.value = item.value.replace(/[^\d]/g, '');
-      });
-    });
+      document.querySelector('.data').addEventListener('change', (event) => {
+          let target = event.target;
+          if (target.matches('input[placeholder="Сумма"]')) {
+            target.value = target.value.replace(/[^\d]/g, '');
+          }
 
-    nameInputs.forEach((item) => {
-      item.addEventListener('input',() => {
-        item.value = item.value.replace(/[^?!,.а-яА-ЯёЁ\s]/g, '');
-      });
-    });
+          if (target.matches('input[placeholder="Наименование"]')) {
+            target.value = target.value.replace(/[^?!,.а-яА-ЯёЁ\s]/g, '');
+          }
+      })
   }
   eventListeners() {
     //обработчики событий
