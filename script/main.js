@@ -25,8 +25,6 @@ const allTextInputs = document.querySelectorAll('input[type="text"]'), // доп
       depositBankElem = document.querySelector('.deposit-bank'),
       depositAmountElem = document.querySelector('.deposit-amount'),
       depositPercentElem = document.querySelector('.deposit-percent'),
-      sumInputs = document.querySelectorAll('input[placeholder="Сумма"]'),
-      nameInputs = document.querySelectorAll('input[placeholder="Наименование"]');
 
 
 function isNumber(number) {
