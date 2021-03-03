@@ -322,7 +322,22 @@ window.addEventListener("DOMContentLoaded", () => {
         const roomsNum = document.querySelector('.calc-count');
         const totalSquare = document.querySelector('.calc-square');
 
-        const countSum = () => {
+        const wowNum = num => {
+            const time = 400;
+            const step = 100;
+            let count = 0;
+            const int = Math.round(time / (num / step));
+            if (num === 0) return;
+            const interval = setInterval(() => {
+                count += step;
+                if (count === num) {
+                    clearInterval(interval);
+                }
+                totalValue.textContent = count;
+            }, int);
+        };
+
+        const countSum = (callback) => {
             let total = 0;
             let countValue = 1;
             let dayValue = 1;
@@ -339,18 +354,18 @@ window.addEventListener("DOMContentLoaded", () => {
                 dayValue *= 1.5;
             }
 
-            if (typeValue && squareValue) {
-                total = price * typeValue * squareValue * countValue * dayValue;
+            if (typeValue && squareValue !== 0) {
+                total = Math.round(price * typeValue * squareValue * countValue * dayValue);
             }
 
-            totalValue.textContent = total;
+            callback(total);
         };
 
         calcBlock.addEventListener('change', event => {
             const target = event.target;
             if (target === apartmentType || target === daysToComplete ||
              target === roomsNum || target === totalSquare) {
-                countSum();
+                countSum(wowNum);
             }
         });
     };
