@@ -290,26 +290,38 @@ window.addEventListener("DOMContentLoaded", () => {
     const formValidation = () => {
         const calcInputs = document.querySelectorAll(".calc-item");
         const phoneInputs = document.querySelectorAll(".form-phone");
+        const emailInputs = document.querySelectorAll(".form-email");
+        const nameMess = document.querySelectorAll("input[name='user_name'], .mess");
 
         calcInputs.forEach((item, index) => {
-            item.addEventListener('blur', event => {
+            item.addEventListener('blur', () => {
                 if (index === 0) {
                     return;
                 }
                 item.value = item.value.replace(/[^\d]/g, '');
             });
         });
-        phoneInputs.forEach(item => {
-            item.addEventListener('blur', event => {
-                item.value = item.value.replace(/-(?=-)/, '');
 
-                if (item.value.length > 16) {
-                    item.value = item.value.slice(0, 16);
+        phoneInputs.forEach(item => {
+            item.addEventListener('blur', () => {
+                item.value = item.value.replace(/[^\d()-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+                if (item.value.length > 15) {
+                    item.value = item.value.slice(0, 15);
                 }
             });
         });
+        // emailInputs.forEach(item => {    replace(/-+|\s+/g, '-');
+        //     item.addEventListener('blur', event => {
+        //         item.value = item.value.replace(/[^.'*!~\w@-]/gi, '');
+        //     });
+        // });
+        nameMess.forEach(item => {
+            item.addEventListener('blur', () => {
+                item.value = item.value.replace(/[^-а-я\s]/gi, '').replace(/-+/g, '-');
+            });
+        });
 
-    // .replace(/[^\d()-]/g, '')
+
     };
     formValidation();
 
@@ -372,4 +384,6 @@ window.addEventListener("DOMContentLoaded", () => {
     calculator(100);
 
 });
+
+
 
