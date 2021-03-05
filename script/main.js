@@ -291,10 +291,11 @@ window.addEventListener("DOMContentLoaded", () => {
         const calcInputs = document.querySelectorAll(".calc-item");
         const phoneInputs = document.querySelectorAll(".form-phone");
         const emailInputs = document.querySelectorAll(".form-email");
-        const nameMess = document.querySelectorAll("input[name='user_name'], .mess");
+        const name = document.querySelectorAll("input[name='user_name']");
+        const message = document.querySelector('.mess');
 
         calcInputs.forEach((item, index) => {
-            item.addEventListener('blur', () => {
+            item.addEventListener('input', () => {
                 if (index === 0) {
                     return;
                 }
@@ -303,21 +304,24 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         phoneInputs.forEach(item => {
-            item.addEventListener('blur', () => {
-                item.value = item.value.replace(/[^\d()-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
-                if (item.value.length > 15) {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^+\d-()]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+                if (item.value.length > 16) {
                     item.value = item.value.slice(0, 15);
                 }
             });
         });
-        // emailInputs.forEach(item => {    replace(/-+|\s+/g, '-');
-        //     item.addEventListener('blur', event => {
-        //         item.value = item.value.replace(/[^.'*!~\w@-]/gi, '');
-        //     });
-        // });
-        nameMess.forEach(item => {
-            item.addEventListener('blur', () => {
-                item.value = item.value.replace(/[^-а-я\s]/gi, '').replace(/-+/g, '-');
+        emailInputs.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^a-z@\-_.!~*']/gi, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            });
+        });
+        message.addEventListener('input', () => {
+            message.value = message.value.replace(/[^-а-я\s0-9.,?!]/gi, '').replace(/-+/g, '-');
+        });
+        name.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^а-я\s]/gi, '').replace(/\s+/g, " ");
             });
         });
 
@@ -335,8 +339,8 @@ window.addEventListener("DOMContentLoaded", () => {
         const totalSquare = document.querySelector('.calc-square');
 
         const wowNum = num => {
-            const time = 400;
-            const step = 100;
+            const time = 1000;
+            const step = num * 0.1;
             let count = 0;
             const int = Math.round(time / (num / step));
             if (num === 0) return;
@@ -349,7 +353,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }, int);
         };
 
-        const countSum = (callback) => {
+        const countSum = callback => {
             let total = 0;
             let countValue = 1;
             let dayValue = 1;
@@ -383,7 +387,121 @@ window.addEventListener("DOMContentLoaded", () => {
     };
     calculator(100);
 
+    //Отправка AJAX-формы на сервер
+    const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так...';
+        const successMessage = 'Спасибо! Мы скоро с Вами свяжемся.';
+        const preloader = document.querySelector('.preloader');
+
+        const form = document.getElementById('form1');
+        const popupForm = document.getElementById('form3');
+        const footerForm = document.getElementById('form2');
+
+        const userMessage = document.createElement('div');
+        userMessage.style.cssText = 'font-size: 2rem';
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            form.append(userMessage);
+            userMessage.append(preloader);
+            preloader.style.display = 'block';
+
+            const formData = new FormData(form);  // объект считывает данные со всех инпутов в форме, что имеют атрибут name и записывает в переменную
+            const body = {};
+            for (const value of formData.entries()) {
+                body[value[0]] = value[1];
+            }
+            postData(body, () => {
+                userMessage.textContent = successMessage;
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            }, error => {
+                userMessage.textContent = errorMessage;
+                console.log(error);
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            });
+            form.querySelectorAll('input').forEach(item => {
+                item.value = '';
+            });
+        });
+
+        popupForm.addEventListener('submit', event => {
+            event.preventDefault();
+            popupForm.append(userMessage);
+            preloader.style.display = 'block';
+            userMessage.append(preloader);
+
+            const formData = new FormData(popupForm);
+            const body = {};
+            for (const value of formData.entries()) {
+                body[value[0]] = value[1];
+            }
+            postData(body, () => {
+                userMessage.style.color = 'white';
+                userMessage.textContent = successMessage;
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            }, error => {
+                userMessage.textContent = errorMessage;
+                console.log(error);
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            });
+            popupForm.querySelectorAll('input').forEach(item => {
+                item.value = '';
+            });
+        });
+
+        footerForm.addEventListener('submit', event => {
+            event.preventDefault();
+            footerForm.append(userMessage);
+            preloader.style.display = 'block';
+            userMessage.append(preloader);
+
+            const formData = new FormData(footerForm);
+            const body = {};
+            for (const value of formData.entries()) {
+                body[value[0]] = value[1];
+            }
+            postData(body, () => {
+                userMessage.textContent = successMessage;
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            }, error => {
+                userMessage.textContent = errorMessage;
+                console.log(error);
+                setTimeout(() => {
+                    userMessage.textContent = '';
+                }, 5000);
+            });
+            footerForm.querySelectorAll('input').forEach(item => {
+                item.value = '';
+            });
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener("readystatechange", () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    outputData();
+                } else {
+                    errorData(request.status);
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(body));
+        };
+    };
+    sendForm();
 });
-
-
-
