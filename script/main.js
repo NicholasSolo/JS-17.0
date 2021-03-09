@@ -339,7 +339,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const totalSquare = document.querySelector('.calc-square');
 
         const wowNum = num => {
-            const time = 1000;
+            const time = 500;
             const step = num * 0.1;
             let count = 0;
             const int = Math.round(time / (num / step));
@@ -389,16 +389,31 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //Отправка AJAX-формы на сервер
     const sendForm = () => {
-        const errorMessage = 'Что-то пошло не так...';
-        const successMessage = 'Спасибо! Мы скоро с Вами свяжемся.';
         const preloader = document.querySelector('.preloader');
 
         const form = document.getElementById('form1');
         const popupForm = document.getElementById('form3');
         const footerForm = document.getElementById('form2');
-
         const userMessage = document.createElement('div');
         userMessage.style.cssText = 'font-size: 2rem';
+
+        const postData = body => new Promise((resolve, reject) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener("readystatechange", () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    resolve('Спасибо! Мы скоро с Вами свяжемся.');
+                } else {
+                    reject('Что-то пошло не так...');
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(body));
+        });
 
         form.addEventListener('submit', event => {
             event.preventDefault();
@@ -411,18 +426,19 @@ window.addEventListener("DOMContentLoaded", () => {
             for (const value of formData.entries()) {
                 body[value[0]] = value[1];
             }
-            postData(body, () => {
-                userMessage.textContent = successMessage;
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            }, error => {
-                userMessage.textContent = errorMessage;
-                console.log(error);
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            });
+            postData(body)
+                .then(successMessage => {
+                    userMessage.textContent = successMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                })
+                .catch(errorMessage => {
+                    userMessage.textContent = errorMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                });
             form.querySelectorAll('input').forEach(item => {
                 item.value = '';
             });
@@ -439,19 +455,20 @@ window.addEventListener("DOMContentLoaded", () => {
             for (const value of formData.entries()) {
                 body[value[0]] = value[1];
             }
-            postData(body, () => {
-                userMessage.style.color = 'white';
-                userMessage.textContent = successMessage;
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            }, error => {
-                userMessage.textContent = errorMessage;
-                console.log(error);
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            });
+            postData(body)
+                .then(successMessage => {
+                    userMessage.style.color = 'white';
+                    userMessage.textContent = successMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                })
+                .catch(errorMessage => {
+                    userMessage.textContent = errorMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                });
             popupForm.querySelectorAll('input').forEach(item => {
                 item.value = '';
             });
@@ -468,40 +485,26 @@ window.addEventListener("DOMContentLoaded", () => {
             for (const value of formData.entries()) {
                 body[value[0]] = value[1];
             }
-            postData(body, () => {
-                userMessage.textContent = successMessage;
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            }, error => {
-                userMessage.textContent = errorMessage;
-                console.log(error);
-                setTimeout(() => {
-                    userMessage.textContent = '';
-                }, 5000);
-            });
+            postData(body)
+                .then(successMessage => {
+                    userMessage.textContent = successMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                })
+                .catch(errorMessage => {
+                    userMessage.textContent = errorMessage;
+                    setTimeout(() => {
+                        userMessage.textContent = '';
+                    }, 5000);
+                });
+
             footerForm.querySelectorAll('input').forEach(item => {
                 item.value = '';
             });
         });
-
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener("readystatechange", () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
-                } else {
-                    errorData(request.status);
-                }
-            });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
-        };
     };
     sendForm();
+
 });
+

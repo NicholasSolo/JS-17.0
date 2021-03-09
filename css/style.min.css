@@ -999,3 +999,47 @@ footer .web {
     left: 5px;
   }
 }
+
+/* preloader styles  */
+
+.preloader {
+  display: none;
+  width: 8em;
+  margin: auto;
+  text-align: center;
+}
+.preloader .sk-child {
+  width: 1em;
+  height: 1em;
+  background-color: #19b5fe;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: preloader 1.4s ease-in-out 0s infinite both;
+          animation: preloader 1.4s ease-in-out 0s infinite both;
+}
+.preloader .sk-bounce-1 {
+  -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+}
+.preloader .sk-bounce-2 {
+  -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+}
+
+@-webkit-keyframes preloader {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes preloader {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
