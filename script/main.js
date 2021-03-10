@@ -2,7 +2,7 @@
 
 window.addEventListener("DOMContentLoaded", () => {
     //Timer
-    const countTimer = deadline => {
+    const countTimer = (deadline) => {
         const timerHours = document.getElementById("timer-hours");
         const timerMinutes = document.getElementById("timer-minutes");
         const timerSeconds = document.getElementById("timer-seconds");
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 seconds,
             };
         };
-        const addZero = value => {
+        const addZero = (value) => {
             if (value < 10) {
                 value = "0" + value;
                 return value;
@@ -59,7 +59,7 @@ window.addEventListener("DOMContentLoaded", () => {
             menu.classList.toggle("active-menu");
         };
 
-        document.addEventListener("click", event => {
+        document.addEventListener("click", (event) => {
             const target = event.target;
             const allMenu = target == menu || menu.contains(target);
             const closeBtn = target == document.querySelector(".close-btn");
@@ -76,7 +76,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const togglePopup = () => {
         const popUp = document.querySelector(".popup");
 
-        document.querySelector(".service").addEventListener("click", event => {
+        document.querySelector(".service").addEventListener("click", (event) => {
             if (event.target.classList.contains("popup-btn")) {
                 if (document.documentElement.clientWidth > 768) {
                     popUp.style.display = "block";
@@ -97,7 +97,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        popUp.addEventListener("click", event => {
+        popUp.addEventListener("click", (event) => {
             let target = event.target;
             if (target.classList.contains("popup-close")) {
                 popUp.style.display = "none";
@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded", () => {
         );
         for (const anchor of anchors) {
             if (!anchor.classList.contains("close-btn")) {
-                anchor.addEventListener("click", event => {
+                anchor.addEventListener("click", (event) => {
                     event.preventDefault();
                     const blockID = anchor.getAttribute("href");
                     document.querySelector(blockID).scrollIntoView({
@@ -137,7 +137,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const tabs = tabHeader.querySelectorAll(".service-header-tab");
         const tabContent = document.querySelectorAll(".service-tab");
 
-        const toggleTabContent = index => {
+        const toggleTabContent = (index) => {
             for (let i = 0; i < tabContent.length; i++) {
                 if (index === i) {
                     tabs[i].classList.add("active");
@@ -148,7 +148,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             }
         };
-        tabHeader.addEventListener("click", event => {
+        tabHeader.addEventListener("click", (event) => {
             const target = event.target.closest(".service-header-tab");
 
             if (target.classList.contains("service-header-tab")) {
@@ -209,7 +209,7 @@ window.addEventListener("DOMContentLoaded", () => {
             clearInterval(interval);
         };
 
-        slider.addEventListener("click", event => {
+        slider.addEventListener("click", (event) => {
             event.preventDefault();
             const target = event.target;
 
@@ -242,7 +242,7 @@ window.addEventListener("DOMContentLoaded", () => {
             nextSlide(dots, currentSlide, "dot-active");
         });
 
-        slider.addEventListener("mouseover", event => {
+        slider.addEventListener("mouseover", (event) => {
             if (
                 event.target.matches(".portfolio-btn") ||
         event.target.matches(".dot")
@@ -251,7 +251,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        slider.addEventListener("mouseout", event => {
+        slider.addEventListener("mouseout", (event) => {
             if (
                 event.target.matches(".portfolio-btn") ||
         event.target.matches(".dot")
@@ -269,7 +269,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const team = document.querySelector(".command");
         let source = "";
         let dataAttr = "";
-        team.addEventListener("mouseover", event => {
+        team.addEventListener("mouseover", (event) => {
             if (!event.target.matches(".command__photo")) {
                 return;
             }
@@ -277,7 +277,7 @@ window.addEventListener("DOMContentLoaded", () => {
             dataAttr = event.target.dataset.img;
             event.target.src = event.target.dataset.img;
         });
-        team.addEventListener("mouseout", event => {
+        team.addEventListener("mouseout", (event) => {
             if (!event.target.matches(".command__photo")) {
                 return;
             }
@@ -303,7 +303,7 @@ window.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        phoneInputs.forEach(item => {
+        phoneInputs.forEach((item) => {
             item.addEventListener('input', () => {
                 item.value = item.value.replace(/[^+\d-()]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
                 if (item.value.length > 16) {
@@ -311,7 +311,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-        emailInputs.forEach(item => {
+        emailInputs.forEach((item) => {
             item.addEventListener('input', () => {
                 item.value = item.value.replace(/[^a-z@\-_.!~*']/gi, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
             });
@@ -319,7 +319,7 @@ window.addEventListener("DOMContentLoaded", () => {
         message.addEventListener('input', () => {
             message.value = message.value.replace(/[^-а-я\s0-9.,?!]/gi, '').replace(/-+/g, '-');
         });
-        name.forEach(item => {
+        name.forEach((item) => {
             item.addEventListener('input', () => {
                 item.value = item.value.replace(/[^а-я\s]/gi, '').replace(/\s+/g, " ");
             });
@@ -338,7 +338,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const roomsNum = document.querySelector('.calc-count');
         const totalSquare = document.querySelector('.calc-square');
 
-        const wowNum = num => {
+        const wowNum = (num) => {
             const time = 500;
             const step = num * 0.1;
             let count = 0;
@@ -353,7 +353,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }, int);
         };
 
-        const countSum = callback => {
+        const countSum = (callback) => {
             let total = 0;
             let countValue = 1;
             let dayValue = 1;
@@ -377,7 +377,7 @@ window.addEventListener("DOMContentLoaded", () => {
             callback(total);
         };
 
-        calcBlock.addEventListener('change', event => {
+        calcBlock.addEventListener('change', (event) => {
             const target = event.target;
             if (target === apartmentType || target === daysToComplete ||
              target === roomsNum || target === totalSquare) {
@@ -389,6 +389,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //Отправка AJAX-формы на сервер
     const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так...';
+        const successMessage = 'Спасибо! Мы скоро с Вами свяжемся.';
         const preloader = document.querySelector('.preloader');
 
         const form = document.getElementById('form1');
@@ -397,25 +399,13 @@ window.addEventListener("DOMContentLoaded", () => {
         const userMessage = document.createElement('div');
         userMessage.style.cssText = 'font-size: 2rem';
 
-        const postData = body => new Promise((resolve, reject) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener("readystatechange", () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    resolve('Спасибо! Мы скоро с Вами свяжемся.');
-                } else {
-                    reject('Что-то пошло не так...');
-                }
-            });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
+        const postData = (body) =>  fetch('./server.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
         });
 
-        form.addEventListener('submit', event => {
+        form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.append(userMessage);
             userMessage.append(preloader);
@@ -427,24 +417,28 @@ window.addEventListener("DOMContentLoaded", () => {
                 body[value[0]] = value[1];
             }
             postData(body)
-                .then(successMessage => {
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('network failed');
+                    }
                     userMessage.textContent = successMessage;
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 })
-                .catch(errorMessage => {
+                .catch((error) => {
                     userMessage.textContent = errorMessage;
+                    console.log(error);
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 });
-            form.querySelectorAll('input').forEach(item => {
+            form.querySelectorAll('input').forEach((item) => {
                 item.value = '';
             });
         });
 
-        popupForm.addEventListener('submit', event => {
+        popupForm.addEventListener('submit', (event) => {
             event.preventDefault();
             popupForm.append(userMessage);
             preloader.style.display = 'block';
@@ -456,25 +450,29 @@ window.addEventListener("DOMContentLoaded", () => {
                 body[value[0]] = value[1];
             }
             postData(body)
-                .then(successMessage => {
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('network failed');
+                    }
                     userMessage.style.color = 'white';
                     userMessage.textContent = successMessage;
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 })
-                .catch(errorMessage => {
+                .catch((error) => {
+                    console.log(error);
                     userMessage.textContent = errorMessage;
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 });
-            popupForm.querySelectorAll('input').forEach(item => {
+            popupForm.querySelectorAll('input').forEach((item) => {
                 item.value = '';
             });
         });
 
-        footerForm.addEventListener('submit', event => {
+        footerForm.addEventListener('submit', (event) => {
             event.preventDefault();
             footerForm.append(userMessage);
             preloader.style.display = 'block';
@@ -486,20 +484,24 @@ window.addEventListener("DOMContentLoaded", () => {
                 body[value[0]] = value[1];
             }
             postData(body)
-                .then(successMessage => {
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('network failed');
+                    }
                     userMessage.textContent = successMessage;
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 })
-                .catch(errorMessage => {
+                .catch((error) => {
+                    console.log(error);
                     userMessage.textContent = errorMessage;
                     setTimeout(() => {
                         userMessage.textContent = '';
                     }, 5000);
                 });
 
-            footerForm.querySelectorAll('input').forEach(item => {
+            footerForm.querySelectorAll('input').forEach((item) => {
                 item.value = '';
             });
         });
