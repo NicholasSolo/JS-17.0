@@ -42,13 +42,12 @@ const calculator = (price = 100) => {
             total = Math.round(price * typeValue * squareValue * countValue * dayValue);
         }
 
-        callback(total);
+        callback((total));
     };
 
     calcBlock.addEventListener('change', (event) => {
         const target = event.target;
-        if (target === apartmentType || target === daysToComplete ||
-         target === roomsNum || target === totalSquare) {
+        if (target.matches('.calc-item')) {
             countSum(wowNum);
         }
     });

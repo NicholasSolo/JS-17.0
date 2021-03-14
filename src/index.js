@@ -10,6 +10,7 @@ import switchPhoto from "./modules/switchPhoto";
 import formValidation from "./modules/formValidation";
 import calculator from "./modules/calculator";
 import sendForm from "./modules/sendForm";
+import carousel from "./modules/trustedCarousel";
 
 
 //Timer
@@ -41,3 +42,6 @@ calculator(100);
 
 //Отправка AJAX-формы на сервер
 sendForm();
+
+//Карусель "Нам доверяют"
+carousel.init();

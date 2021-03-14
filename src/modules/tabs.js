@@ -4,15 +4,16 @@ const tabs = () => {
     const tabContent = document.querySelectorAll(".service-tab");
 
     const toggleTabContent = (index) => {
-        for (let i = 0; i < tabContent.length; i++) {
-            if (index === i) {
-                tabs[i].classList.add("active");
-                tabContent[i].classList.remove("d-none");
+
+        tabContent.forEach((item, tabIndex) => {
+            if (index === tabIndex) {
+                item.classList.remove("d-none");
+                tabs[tabIndex].classList.add("active");
             } else {
-                tabs[i].classList.remove("active");
-                tabContent[i].classList.add("d-none");
+                item.classList.add("d-none");
+                tabs[tabIndex].classList.remove("active");
             }
-        }
+        })
     };
     tabHeader.addEventListener("click", (event) => {
         const target = event.target.closest(".service-header-tab");
