@@ -8,7 +8,7 @@ const calculator = (price = 100) => {
 
     const wowNum = (num) => {
         const time = 500;
-        const step = num * 0.1;
+        const step = Math.floor(num * 0.1);
         let count = 0;
         const int = Math.round(time / (num / step));
         if (num === 0) return;
@@ -18,6 +18,11 @@ const calculator = (price = 100) => {
                 clearInterval(interval);
             }
             totalValue.textContent = count;
+            if(count > num) {  //count получается больше num, когда шаг не кратен 10. 
+                    //Выходит, что первая проверка (count === num) игнорируется, т.к. итоговая сумма просто "перескакивает" значение num, setInterval не прерывается и крутит счетчик все выше и выше
+                clearInterval(interval); // тогда он прерывается здесь
+                totalValue.textContent = num; // а на экран выводится нужное число, при этом эффект бегущих цифр сохраняется
+            }
         }, int);
     };
 
@@ -52,5 +57,4 @@ const calculator = (price = 100) => {
         }
     });
 };
-
 export default calculator;
