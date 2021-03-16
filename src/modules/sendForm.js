@@ -18,6 +18,7 @@ const sendForm = () => {
 
     const handler = (event, handlerBlock) => {
         event.preventDefault();
+        if(handlerBlock.querySelector('input[type="email"]').value.trim() === '') return; // наверное, лучше использовать атрибут required у инпута
         handlerBlock.append(userMessage);
         preloader.style.display = "block";
         userMessage.append(preloader);
@@ -39,6 +40,9 @@ const sendForm = () => {
             setTimeout(() => {
                 userMessage.textContent = "";
             }, 5000);
+            setTimeout(() => {
+                document.querySelector(".popup").style.display = "none";
+            }, 6000);
         })
         .catch((error) => {
             console.log(error);
@@ -46,6 +50,9 @@ const sendForm = () => {
             setTimeout(() => {
                 userMessage.textContent = "";
             }, 5000);
+            setTimeout(() => {
+                document.querySelector(".popup").style.display = "none";
+            }, 6000);
         });
         handlerBlock.querySelectorAll("input").forEach((item) => {
             item.value = "";

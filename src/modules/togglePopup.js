@@ -1,21 +1,22 @@
 const togglePopup = () => {
     const popUp = document.querySelector(".popup");
+    const popupContent = document.querySelector(".popup-content");
 
     document.querySelector(".service").addEventListener("click", (event) => {
-        if (event.target.classList.contains("popup-btn")) {
+        if (event.target.matches(".popup-btn")) {
             if (document.documentElement.clientWidth > 768) {
                 popUp.style.display = "block";
-                popUp.style.opacity = "0%";
+                popupContent.style.opacity = "0%";
                 let counter = 0;
                 const popupFadeIn = () => {
                     if (counter < 100) {
                         ++counter;
-                        popUp.style.opacity = counter + "%";
+                        popupContent.style.opacity = counter + "%";
                     } else {
                         clearInterval(timer);
                     }
                 };
-                const timer = setInterval(popupFadeIn, 7);
+                const timer = setInterval(popupFadeIn, 10);
             } else {
                 popUp.style.display = "block";
             }

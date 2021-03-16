@@ -14,7 +14,7 @@ import carousel from "./modules/trustedCarousel";
 
 
 //Timer
-countTimer("27 march 2021");
+countTimer("29 march 2021");
 
 //Menu
 toggleMenu();
