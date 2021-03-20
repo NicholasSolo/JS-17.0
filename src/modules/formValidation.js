@@ -2,13 +2,13 @@ const formValidation = () => {
     document.addEventListener("input", (event) => {
         const target = event.target;
 
-        if(target.matches(".calc-item")){
+        if(!target.matches(".calc-type") && target.matches(".calc-item")){
             target.value = target.value.replace(/[^\d]/g, '');
         }
         if (target.matches(".form-phone")){
             target.value = target.value.replace(/[^+\d]/g, '');
             if (target.value.length > 12) {
-                target.value = target.value.slice(0, 13);
+                target.value = target.value.slice(0, 12);
             }
         }
         if (target.matches(".form-email")){
