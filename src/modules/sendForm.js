@@ -22,8 +22,10 @@ const sendForm = () => {
         if(handlerBlock.querySelector('input[name="user_name"]').value.length < 2 || handlerBlock.querySelector('input[name="user_phone"]').value.length < 7) return;
         if(handlerBlock.querySelector('input[type="email"]').value.trim() === '' || 
            !(/\w+@\w+\.\w+/gi).test(handlerBlock.querySelector('input[type="email"]').value)) return; // наверное, лучше использовать атрибут required у инпута
-        if(!handlerBlock.querySelector(".mess").value) return;
-        
+        if(handlerBlock === footerForm) {
+            if(!handlerBlock.querySelector(".mess").value) return;
+        }
+
         handlerBlock.append(userMessage);
         preloader.style.display = "block";
         userMessage.append(preloader);
