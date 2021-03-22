@@ -19,12 +19,10 @@ const showGiftPopup = () => {
     let target = event.target;
     if (target.matches(".close_icon") || target.matches(".close-btn")) {
         giftPopup.style.display = "none";
-        giftIcon.style.display = "inline-block";
     } else {
       target = target.closest(".form-content");
       if (!target) {
             giftPopup.style.display = "none";
-            giftIcon.style.display = "inline-block";
       }
     }
   });
