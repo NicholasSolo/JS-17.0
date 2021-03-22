@@ -1,0 +1,1 @@
+(()=>{"use strict";(()=>{const e=document.querySelector("ul"),t=()=>{e.classList.toggle("menu-active"),e.classList.toggle("animate__animated"),e.classList.toggle("animate__bounceInDown")};document.addEventListener("click",(s=>{let c=s.target;c.matches(".club-select p")?t():(c=c.closest(".club-select"),!c&&e.classList.contains("menu-active")&&t())}))})()})();

@@ -39,7 +39,7 @@
     ],
     "strict": [
       "error",
-      "global"
+      "modules"
     ],
     "brace-style": [
       "error",
