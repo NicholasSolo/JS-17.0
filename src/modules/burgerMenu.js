@@ -21,7 +21,7 @@ const showBurgerMenu = () => {
 
     window.addEventListener("scroll", () => {
         if(document.documentElement.clientWidth < 768) {
-            if(document.documentElement.scrollTop > (topMenu.offsetTop + topMenu.offsetHeight)) {
+            if(document.documentElement.scrollTop > topMenu.offsetTop) {
                 topMenu.classList.add("burger__fixed");
             } else {
                 topMenu.classList.remove("burger__fixed");
