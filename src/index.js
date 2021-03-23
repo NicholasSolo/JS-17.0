@@ -14,5 +14,5 @@ showGiftPopup();
 //Burger-menu
 showBurgerMenu();
 
-//плавное перемещение по клику на пункт меню
+//плавное перемещение по клику на пункты меню
 smoothSlide();
