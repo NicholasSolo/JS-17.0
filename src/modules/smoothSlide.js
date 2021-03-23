@@ -11,7 +11,7 @@ const smoothSlide = () => {
      document.addEventListener("click", (event) =>{
         let target = event.target;
 
-        if (target.matches('a[href*="#"]')) {
+        if (target.matches('a[href*="#"]') && !target.matches('.open-popup')) {
             slide(event, target);
         } else {
             target = target.closest('#totop');

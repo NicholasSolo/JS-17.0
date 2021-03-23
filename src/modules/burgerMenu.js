@@ -25,9 +25,11 @@ const showBurgerMenu = () => {
                 topMenu.classList.add("burger__fixed");
             } else {
                 topMenu.classList.remove("burger__fixed");
-            }
+            }                     
+        } else {
+            topMenu.classList.remove("burger__fixed");
         }
-    })
+    });
 }
 
 export default showBurgerMenu;

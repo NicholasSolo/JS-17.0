@@ -5,6 +5,8 @@ import showGiftPopup from "./modules/giftPopup";
 import showBurgerMenu from "./modules/burgerMenu";
 import smoothSlide from "./modules/smoothSlide";
 import showArrow from "./modules/showGotoTopArrow";
+import freeVisit from "./modules/freeVisitForm";
+import callbackModal from "./modules/callbackForm";
 
 //выпадающее меню
 dropdownMenu();
@@ -20,3 +22,9 @@ smoothSlide();
 
 //появление стрелки
 showArrow()
+
+//бесплатный визит
+freeVisit();
+
+//перезвоните мне
+callbackModal();
