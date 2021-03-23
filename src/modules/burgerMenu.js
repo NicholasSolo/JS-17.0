@@ -1,6 +1,7 @@
 const showBurgerMenu = () => {
     const openBurgerMenuBtn = document.querySelector(".menu-button img");
     const popUpMenu = document.querySelector(".popup-menu");
+    const topMenu = document.querySelector(".top-menu")
 
     openBurgerMenuBtn.addEventListener("click", () => {
         popUpMenu.classList.add("animate__animated");
@@ -18,23 +19,15 @@ const showBurgerMenu = () => {
         }
     })
 
-    const topPosition = popUpMenu.documentElement.offsetTop;
-    console.log(topPosition);
+    window.addEventListener("scroll", () => {
+        if(document.documentElement.clientWidth < 768) {
+            if(document.documentElement.scrollTop > (topMenu.offsetTop + topMenu.offsetHeight)) {
+                topMenu.classList.add("burger__fixed");
+            } else {
+                topMenu.classList.remove("burger__fixed");
+            }
+        }
+    })
 }
 
 export default showBurgerMenu;
-
-
-
-
-// var objToStick = $("#objToStick"); //Получаем нужный объект
-//     var topOfObjToStick = $(objToStick).offset().top; //Получаем начальное расположение нашего блока
-    
-//     $(window).scroll(function () {
-//         var windowScroll = $(window).scrollTop(); //Получаем величину, показывающую на сколько прокручено окно
-//         if (windowScroll > topOfObjToStick) { // Если прокрутили больше, чем расстояние до блока, то приклеиваем его
-//             $(objToStick).addClass("topWindow");
-//         } else {
-//             $(objToStick).removeClass("topWindow");
-//         };
-//     });

@@ -2300,3 +2300,10 @@ p.personal-data input[type="checkbox"]:checked + label:before {
     bottom: 30px;
   }
 }
+
+/* ----- */
+.burger__fixed {
+  position: fixed;
+  top: 0;
+  z-index:9999;
+}
