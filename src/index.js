@@ -7,6 +7,7 @@ import smoothSlide from "./modules/smoothSlide";
 import showArrow from "./modules/showGotoTopArrow";
 import freeVisit from "./modules/freeVisitForm";
 import callbackModal from "./modules/callbackForm";
+import calculator from "./modules/calculator";
 
 //выпадающее меню
 dropdownMenu();
@@ -28,3 +29,6 @@ freeVisit();
 
 //перезвоните мне
 callbackModal();
+
+//calculator
+calculator();
