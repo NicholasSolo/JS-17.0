@@ -3,6 +3,7 @@ const calculator = () => {
     const cardSelectForm = document.getElementById("card_order");
     const servicePeriodTabs = document.querySelectorAll("input[name='card-type']");
     const totalPrice = document.getElementById("price-total");
+    const promoInput = document.getElementById("promo");
 
     const getPrice = (data) => {
       let temp = data;
@@ -17,12 +18,20 @@ const calculator = () => {
         item.dataset.price = priceArray[index];
         if (item.checked) {
           totalPrice.textContent = item.dataset.price;
+          //добавлем проверку промокода при переключении вкладок для динамического изменения цены
+          if(promoInput.value === "ТЕЛО2020") {
+              totalPrice.textContent = Math.round(item.dataset.price*0.7);
+          }
         }
       });
       document.querySelector(".time").addEventListener("change", (event) => {
         const target = event.target;
         if (target) {
           totalPrice.textContent = target.dataset.price;
+          //добавлем проверку промокода при переключении вкладок для динамического изменения цены
+          if(promoInput.value === "ТЕЛО2020") {
+              totalPrice.textContent = Math.round(target.dataset.price*0.7);
+          }
         }
       });
     };
@@ -41,7 +50,7 @@ const calculator = () => {
       .then((priceArray) => {
         switchPrice(priceArray);
       })
-      .catch((err) => {console.error(err)})
+      .catch((err) => {console.error(err)});
 
     cardSelectForm.addEventListener("change", (e) => {
       const target = e.target;
@@ -60,7 +69,7 @@ const calculator = () => {
           .then((priceArray) => {
             switchPrice(priceArray);
           })
-          .catch((err) => {console.error(err)})
+          .catch((err) => {console.error(err)});
       }
       if (target.matches("#card_leto_schelkovo")) {
         fetch("./schelkovo.html")
@@ -76,8 +85,22 @@ const calculator = () => {
           .then((priceArray) => {
             switchPrice(priceArray);
           })
-          .catch((err) => {console.error(err)})
+          .catch((err) => {console.error(err)});
       }
+    });
+//Промокод
+    promoInput.addEventListener("input", (e) => {
+        if (promoInput.value === "ТЕЛО2020") {
+        promoInput.style.border = "2px solid green";
+        totalPrice.textContent = Math.round(totalPrice.textContent * 0.7);
+        } else {
+        promoInput.style.border = "";
+        servicePeriodTabs.forEach((item) => {
+            if (item.checked) {
+            totalPrice.textContent = item.dataset.price;
+            }
+        });
+        }
     });
   }
 };
