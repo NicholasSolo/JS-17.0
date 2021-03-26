@@ -35,7 +35,5 @@ const validateForm = () => {
             }
         }
     }, true)
-
 }
-
 export default validateForm;

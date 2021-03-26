@@ -1138,6 +1138,8 @@ nav.popup-menu .close-menu-btn img {
 .main-slider {
   height: 100%;
   max-height: 541px;
+  display: flex;
+  flex-direction: column;
 }
 .main-slider .slide {
   position: relative;
@@ -1210,25 +1212,28 @@ nav.popup-menu .close-menu-btn img {
 }
 .slider-dots {
   position: absolute;
+  display: flex;
   bottom: 50px;
   left: 50%;
   margin-left: -65px;
-  z-index: 1000;
+  z-index: 10000;
 }
-.slider-dots li {
-  float: left;
-}
-.slider-dots li button {
+
+.slider-dots .dot {
   width: 22px;
-  height: 4px;
+  height: 6px;
   background-color: #fff;
   border: none;
   border-radius: 2px;
   color: transparent;
   margin-right: 5px;
 }
-.slider-dots li.slick-active button {
+.slider-dots .dot-active {
   background-color: #ffd11a;
+}
+.slider-dots .dot:hover {
+  background-color: #ffd11a;
+  cursor: pointer;
 }
 #clubs {
   padding-bottom: 50px;
@@ -2407,3 +2412,38 @@ p.personal-data input[type="checkbox"]:checked + label:before {
   margin-top: 10px;
 }
 
+
+/* стили слайдера в хедере */
+.slide_active {
+  display: block !important;
+}
+.slide_notactive {
+  display: none;
+}
+.header_slider-dots {
+  display: flex;
+  align-self: center;
+  z-index: 10000;
+  margin: 20px auto;
+ } 
+ .header_slider-dots .dot {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin: 0 10px;
+  border-radius: 50%;
+  border: solid #fff;
+  display: inline-block;
+  -webkit-transition: background-color, -webkit-transform 0.4s;
+  transition: background-color, transform 0.4s, -webkit-transform 0.4s;
+}
+.header_slider-dots .dot-active {
+  background-color: #ffd11a;
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+.header_slider-dots .dot:hover {
+  background-color: #ffd11a;
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+} 

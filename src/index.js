@@ -10,6 +10,7 @@ import callbackModal from "./modules/callbackForm";
 import calculator from "./modules/calculator";
 import sendForm from "./modules/sendForm";
 import validateForm from "./modules/formValidation";
+import mainSlider from "./modules/mainSlider";
 
 //выпадающее меню
 dropdownMenu();
@@ -41,3 +42,5 @@ sendForm();
 //валидация ввода
 validateForm();
 
+//главный слайдер
+mainSlider();
