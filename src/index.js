@@ -9,6 +9,7 @@ import freeVisit from "./modules/freeVisitForm";
 import callbackModal from "./modules/callbackForm";
 import calculator from "./modules/calculator";
 import sendForm from "./modules/sendForm";
+import validateForm from "./modules/formValidation";
 
 //выпадающее меню
 dropdownMenu();
@@ -36,4 +37,7 @@ calculator();
 
 //отправка формы
 sendForm();
+
+//валидация ввода
+validateForm();
 
