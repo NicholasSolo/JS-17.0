@@ -8,6 +8,7 @@ import showArrow from "./modules/showGotoTopArrow";
 import freeVisit from "./modules/freeVisitForm";
 import callbackModal from "./modules/callbackForm";
 import calculator from "./modules/calculator";
+import sendForm from "./modules/sendForm";
 
 //выпадающее меню
 dropdownMenu();
@@ -32,4 +33,7 @@ callbackModal();
 
 //calculator
 calculator();
+
+//отправка формы
+sendForm();
 

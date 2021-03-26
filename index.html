@@ -203,13 +203,14 @@
         <h2>Записаться на бесплатный&nbsp;визит</h2>
         <div class="form-wrapper">
             <form name="banner-form" id="banner-form" action="#" method="post">
-                <input type="hidden" name="form_name" value=" Записаться на визит">
+                <input type="hidden" name="form_name" value="Записаться на визит">
                 <input name="name" type="text" required placeholder="Ваше имя...">
                 <input type="tel" name="phone" id="phone" required placeholder="Ваш номер телефона...">
                 <button name="send" class="btn" type="submit">Записаться</button>
                 <p class="personal-data">
-                    <input type="checkbox" required id="check1"><label for="check1">Я согласен на обработку персональных
-                    данных</label>
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Я согласен на обработку персональных данных</label>
+                    <p class="popup" id="personalDataAgreement">Необходимо дать согласие на обработку персональных данных!</p>
                 </p>
             </form>
 
@@ -340,12 +341,14 @@
                     </div>
                     <input type="hidden" name="form_name" value="Заказать карту">
                     <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
-                    <p class="input-text"><input type="tel" name="phone" id="callback_form-phone" required
-                                                 placeholder="Ваш номер телефона..."></p>
-                    <p class="personal-data">
-                        <input type="checkbox" required id="card_check"><label for="card_check">Я согласен на обработку
-                        персональных данных</label>
-                    </p>
+                    <p class="input-text"><input type="tel" name="phone" id="callback_form-phone" required placeholder="Ваш номер телефона..."></p>
+                         <div class="personal-data-wrapper">
+                            <p class="personal-data">
+                                <input type="checkbox" id="card_check">
+                                <label for="card_check">Я согласен на обработку персональных данных</label>
+                            </p>
+                            <p class="popup" id="personalDataAgreement">Необходимо дать согласие на обработку персональных данных!</p>
+                        </div>
                     <p class="submit">
                         <button type="submit" class="btn card-order-btn">Забронировать карту</button>
                     </p>
@@ -445,15 +448,15 @@
         <div class="form-content">
             <form name="callback-form" id="form1" action="#" method="post">
                 <h4>Обратный звонок</h4>
-                <input type="hidden" name="form_name" value=" Обратный звонок">
+                <input type="hidden" name="form_name" value="Обратный звонок">
                 <!--  <input type="hidden" name="club" value="<?=$_GET['club-name']?>"> -->
                 <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
                 <p class="input-text"><input type="tel" name="phone" id="callback_form1-phone" required
                                              placeholder="Ваш номер телефона..."></p>
                 <p class="personal-data">
-                    <input type="checkbox" required id="check"><label for="check">Я согласен на обработку <br>персональных
-                    данных</label>
-
+                    <input type="checkbox" id="check">
+                    <label for="check">Я согласен на обработку <br>персональных данных</label>
+                    <p class="popup" id="personalDataAgreement">Необходимо дать согласие на обработку персональных данных!</p>
                 </p>
                 <button name="send1" class="btn btn-send" type="submit">Перезвоните мне</button>
             </form>
@@ -471,14 +474,14 @@
         <div class="form-content">
             <form name="free-visit-form" id="form2" action="#" method="post">
                 <h4>Записаться на визит</h4>
-                <input type="hidden" name="form_name" value=" Записаться на визит">
+                <input type="hidden" name="form_name" value="Записаться на визит">
                 <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
                 <p class="input-text"><input type="tel" name="phone" id="callback_form2-phone" required
                                              placeholder="Ваш номер телефона..."></p>
                 <p class="personal-data">
-                    <input type="checkbox" required id="check2"><label for="check2">Я согласен на обработку <br>персональных
-                    данных</label>
-
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Я согласен на обработку <br>персональных данных</label>
+                    <p class="popup" id="personalDataAgreement">Необходимо дать согласие на обработку персональных данных!</p>
                 </p>
                 <button name="send1" class="btn btn-send" type="submit">записаться</button>
             </form>
@@ -500,6 +503,20 @@
         </div>
     </div>
 </div>
+<div class="popup" id="thanks__error">
+    <div class="overlay">
+    </div>
+    <div class="form-wrapper">
+        <div class="close-form">
+            <img src="images/close-icon.png" alt="close" class="close_icon">
+        </div>
+        <div class="form-content">
+            <h4>Упс!...</h4>
+            <p>Что-то пошло не так. <br> Попробуйте позже или позвоните нам.</p>
+            <button class="btn close-btn">OK</button>
+        </div>
+    </div>
+</div>
 <div class="popup" id="gift">
     <div class="overlay">
     </div>
@@ -516,6 +533,14 @@
 
 </div>
 
+<!-- Preloader -->
+<div class='preloader'>
+      <div class='sk-rect sk-rect-1'></div>
+      <div class='sk-rect sk-rect-2'></div>
+      <div class='sk-rect sk-rect-3'></div>
+      <div class='sk-rect sk-rect-4'></div>
+      <div class='sk-rect sk-rect-5'></div>
+</div>
 
 <script src="./dist/main.js"></script>
 </body>
