@@ -36,7 +36,7 @@ const sendForm = () => {
     });
 // 
     const postData = (body) =>
-    fetch("./se4444rver.php", {
+    fetch("./server.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

@@ -1211,18 +1211,15 @@ nav.popup-menu .close-menu-btn img {
   font-size: 36px;
 }
 .slider-dots {
-  position: absolute;
   display: flex;
-  bottom: 50px;
-  left: 50%;
-  margin-left: -65px;
   z-index: 10000;
+  margin-top: -25px;
 }
 
 .slider-dots .dot {
   width: 22px;
   height: 6px;
-  background-color: #fff;
+  background-color: rgb(243, 241, 234);
   border: none;
   border-radius: 2px;
   color: transparent;
@@ -1405,24 +1402,30 @@ nav.popup-menu .close-menu-btn img {
   background: url(../images/gallery-bg.png) left center no-repeat;
 }
 #gallery .gallery-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-left: 75px;
   padding-right: 75px;
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
+#gallery .wrapper {
+  display: flex;
+  align-items: center;
+}
 #gallery .gallery-slider .slide {
+  display: none;
   margin: 0 auto !important;
   width: 100%;
 }
-#gallery .gallery-slider .slider-arrow {
-  position: absolute;
-  top: 50%;
-  margin-top: -18px;
+#gallery .wrapper .slider-arrow {
+  width: fit-content;
   z-index: 100;
   cursor: pointer;
 }
-#gallery .gallery-slider .slider-arrow span {
+#gallery .wrapper .slider-arrow span { 
   display: block;
   width: 36px;
   height: 37px;
@@ -1437,11 +1440,7 @@ nav.popup-menu .close-menu-btn img {
 #gallery .gallery-slider .slider-arrow.next {
   right: 0;
 }
-#gallery .gallery-slider .slider-dots {
-  left: 50%;
-  margin-left: -65px;
-  bottom: 5%;
-}
+
 #cards {
   padding-bottom: 4rem;
 }

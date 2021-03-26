@@ -1,6 +1,6 @@
 const mainSlider = () => {
     const slider = document.querySelector(".main-slider");
-    const slides = document.querySelectorAll(".main-slider .slide");
+    const slides = slider.querySelectorAll(".slide");
     const dots = [];
     let currentSlide = 0;
     let interval;

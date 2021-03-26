@@ -11,6 +11,7 @@ import calculator from "./modules/calculator";
 import sendForm from "./modules/sendForm";
 import validateForm from "./modules/formValidation";
 import mainSlider from "./modules/mainSlider";
+import gallerySlider from "./modules/gallerySlider"
 
 //выпадающее меню
 dropdownMenu();
@@ -44,3 +45,6 @@ validateForm();
 
 //главный слайдер
 mainSlider();
+
+//слайдер галереи
+gallerySlider();
