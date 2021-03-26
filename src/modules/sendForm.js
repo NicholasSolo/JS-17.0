@@ -44,7 +44,16 @@ const sendForm = () => {
 
     const postHandler = (form, event) => {
         event.preventDefault();
-        if(form.querySelector("[name='name']").value.length < 2 || form.querySelector("[type='tel']").value.length < 6) return;
+
+        if (form.querySelector("[name='name']")) {
+            if(form.querySelector("[type='tel']").value.length < 6 || form.querySelector("[name='name']").value.length < 2) return;
+        }
+        
+
+        if(form.querySelector("#callback_footer_form-phone")) {
+            console.log(6565656565);
+            if (form.querySelector("[type='tel']").value.length < 6) return;
+        };
         
         //проверка стоит ли галочка обработки персональных данных
         const infoCheck = form.querySelector("[type='checkbox']");
