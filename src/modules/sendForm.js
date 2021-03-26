@@ -49,9 +49,7 @@ const sendForm = () => {
             if(form.querySelector("[type='tel']").value.length < 6 || form.querySelector("[name='name']").value.length < 2) return;
         }
         
-
         if(form.querySelector("#callback_footer_form-phone")) {
-            console.log(6565656565);
             if (form.querySelector("[type='tel']").value.length < 6) return;
         };
         
