@@ -1212,7 +1212,7 @@ nav.popup-menu .close-menu-btn img {
 }
 .slider-dots {
   display: flex;
-  z-index: 10000;
+  z-index: 1000;
   position: absolute;
   bottom: 25px;
 }
@@ -2422,7 +2422,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
 .header_slider-dots {
   display: flex;
   align-self: center;
-  z-index: 10000;
+  z-index: 1000;
   margin: 20px auto;
  } 
  .header_slider-dots .dot {

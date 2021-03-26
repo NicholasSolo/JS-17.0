@@ -44,6 +44,8 @@ const sendForm = () => {
 
     const postHandler = (form, event) => {
         event.preventDefault();
+        if(form.querySelector("[name='name']").value.length < 2 || form.querySelector("[type='tel']").value.length < 6) return;
+        
         //проверка стоит ли галочка обработки персональных данных
         const infoCheck = form.querySelector("[type='checkbox']");
         const personalDataAgreement = form.querySelector("#personalDataAgreement");
