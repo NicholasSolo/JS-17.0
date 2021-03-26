@@ -1213,7 +1213,8 @@ nav.popup-menu .close-menu-btn img {
 .slider-dots {
   display: flex;
   z-index: 10000;
-  margin-top: -25px;
+  position: absolute;
+  bottom: 25px;
 }
 
 .slider-dots .dot {
@@ -1345,13 +1346,9 @@ nav.popup-menu .close-menu-btn img {
 .services-slider {
   display: flex;
   margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 .services-slider .slide {
   text-align: center;
-  margin-right: 6px;
-  margin-left: 6px;
   width: 210px;
 }
 .services-slider .slide img {
@@ -1408,12 +1405,13 @@ nav.popup-menu .close-menu-btn img {
   padding-left: 75px;
   padding-right: 75px;
   max-width: 900px;
-  margin: 0 auto;
   text-align: center;
+  position: relative;
 }
 #gallery .wrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 #gallery .gallery-slider .slide {
   display: none;
@@ -1424,21 +1422,22 @@ nav.popup-menu .close-menu-btn img {
   width: fit-content;
   z-index: 100;
   cursor: pointer;
+  border-radius: 50%;
+  background-color: #f4c71b;
 }
 #gallery .wrapper .slider-arrow span { 
   display: block;
   width: 36px;
   height: 37px;
-  background-color: #f4c71b;
   border-radius: 50%;
   text-align: center;
   padding-top: 11px;
 }
-#gallery .gallery-slider .slider-arrow.prev {
-  left: 0;
+#gallery .wrapper .slider-arrow .prev {
+  background: url(../images/arrow-left.png) no-repeat center;
 }
-#gallery .gallery-slider .slider-arrow.next {
-  right: 0;
+#gallery .wrapper .slider-arrow .next {
+  background: url(../images/arrow-right.png) no-repeat center;
 }
 
 #cards {
@@ -2055,7 +2054,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
     text-align: center;
   }
   .slider-dots {
-    bottom: 56px;
+    bottom: 25px;
   }
   #clubs .content .bottom {
     -webkit-box-pack: center;
@@ -2412,13 +2411,14 @@ p.personal-data input[type="checkbox"]:checked + label:before {
 }
 
 
-/* стили слайдера в хедере */
+
+/* класс, добавляемый для отображения фото в галерее-слайдере */
 .slide_active {
   display: block !important;
 }
-.slide_notactive {
-  display: none;
-}
+
+/* стили слайдера в хедере */
+
 .header_slider-dots {
   display: flex;
   align-self: center;
@@ -2446,3 +2446,49 @@ p.personal-data input[type="checkbox"]:checked + label:before {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 } 
+
+/* стили кнопок карусели */
+
+#services .common_wrapper .slider-arrow {
+  width: fit-content;
+  height: fit-content;
+  z-index: 10000;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #f4c71b;
+}
+#services .common_wrapper .slider-arrow span { 
+  display: block;
+  width: 36px;
+  height: 37px;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 11px;
+}
+#services .common_wrapper .slider-arrow .prev {
+  background: #f4c71b url(../images/arrow-left.png) no-repeat center;
+}
+#services .common_wrapper .slider-arrow .next {
+  background:  #f4c71b url(../images/arrow-right.png) no-repeat center;
+}
+#services .common_wrapper {
+  display: flex;
+  position: relative;
+}
+#services .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+
+.slider-arrow-left {
+  position: absolute;
+  left: -10px;
+  top: 20%;
+}
+.slider-arrow-right {
+  position: absolute;
+  right: -10px;
+  top: 20%;
+}
+

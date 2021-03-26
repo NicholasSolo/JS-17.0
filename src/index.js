@@ -12,7 +12,7 @@ import sendForm from "./modules/sendForm";
 import validateForm from "./modules/formValidation";
 import mainSlider from "./modules/mainSlider";
 import gallerySlider from "./modules/gallerySlider"
-
+import servicesCarousel from "./modules/servicesCarousel";
 //выпадающее меню
 dropdownMenu();
 
@@ -48,3 +48,6 @@ mainSlider();
 
 //слайдер галереи
 gallerySlider();
+
+//карусель
+servicesCarousel();

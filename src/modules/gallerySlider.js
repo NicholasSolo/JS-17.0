@@ -1,5 +1,5 @@
 const gallerySlider = () => {
-    const slider = document.querySelector(".gallery-slider");
+    const slider = document.querySelector("#gallery .wrapper");
     const slides = slider.querySelectorAll(".slide");
     const dots = [];
     let currentSlide = 0;
@@ -43,56 +43,56 @@ const gallerySlider = () => {
         clearInterval(interval);
     };
 
-    // slider.addEventListener("click", (event) => {
-    //     event.preventDefault();
-    //     const target = event.target;
+    slider.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = event.target;
 
-    //     if (!target.matches(".portfolio-btn, .dot")) {
-    //         return;
-    //     }
+        if (!target.matches(".dot, .gallery_button")) {
+            return;
+        }
 
-    //     prevSlide(slides, currentSlide, "portfolio-item-active");
-    //     prevSlide(dots, currentSlide, "dot-active");
+        prevSlide(slides, currentSlide, "slide_active");
+        prevSlide(dots, currentSlide, "dot-active");
 
-    //     if (target.matches("#arrow-right")) {
-    //         currentSlide++;
-    //     } else if (target.matches("#arrow-left")) {
-    //         currentSlide--;
-    //     } else if (target.matches(".dot")) {
-    //         dots.forEach((element, index) => {
-    //             if (element === target) {
-    //                 currentSlide = index;
-    //             }
-    //         });
-    //     }
+        if (target.matches("#arrow-right")) {
+            currentSlide++;
+        } else if (target.matches("#arrow-left")) {
+            currentSlide--;
+        } else if (target.matches(".dot")) {
+            dots.forEach((element, index) => {
+                if (element === target) {
+                    currentSlide = index;
+                }
+            });
+        }
 
-    //     if (currentSlide >= slides.length) {
-    //         currentSlide = 0;
-    //     }
-    //     if (currentSlide < 0) {
-    //         currentSlide = slides.length - 1;
-    //     }
-    //     nextSlide(slides, currentSlide, "portfolio-item-active");
-    //     nextSlide(dots, currentSlide, "dot-active");
-    // });
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+        if (currentSlide < 0) {
+            currentSlide = slides.length - 1;
+        }
+        nextSlide(slides, currentSlide, "slide_active");
+        nextSlide(dots, currentSlide, "dot-active");
+    });
 
-    // slider.addEventListener("mouseover", (event) => {
-    //     if (
-    //         event.target.matches(".portfolio-btn") ||
-    // event.target.matches(".dot")
-    //     ) {
-    //         stopSlide();
-    //     }
-    // });
+    slider.addEventListener("mouseover", (event) => {
+        if (
+            event.target.matches(".gallery_button") ||
+    event.target.matches(".dot")
+        ) {
+            stopSlide();
+        }
+    });
 
-    // slider.addEventListener("mouseout", (event) => {
-    //     if (
-    //         event.target.matches(".portfolio-btn") ||
-    // event.target.matches(".dot")
-    //     ) {
-    //         startSlide(5000);
-    //     }
-    // });
+    slider.addEventListener("mouseout", (event) => {
+        if (
+            event.target.matches(".gallery_button") ||
+    event.target.matches(".dot")
+        ) {
+            startSlide(5000);
+        }
+    });
 
     startSlide(5000);
 }
