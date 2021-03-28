@@ -126,8 +126,10 @@ const sendForm = () => {
             }         
         });
         form.querySelectorAll("input").forEach((item) => {
-            item.value = "";
-            if(item.type === "checkbox") {
+            if (item.type === "tel" || item.name === "name") {
+                item.value = "";
+            }
+            if(item.type === "checkbox" && item.classList.contains('personal_check')) {
                 item.checked = false;
             } 
         });

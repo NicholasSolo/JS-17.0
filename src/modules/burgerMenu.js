@@ -33,5 +33,3 @@ const showBurgerMenu = () => {
 }
 
 export default showBurgerMenu;
-
-

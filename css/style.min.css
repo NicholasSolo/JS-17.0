@@ -1214,7 +1214,7 @@ nav.popup-menu .close-menu-btn img {
   display: flex;
   z-index: 1000;
   position: absolute;
-  bottom: 25px;
+  bottom: 15px;
 }
 
 .slider-dots .dot {
@@ -2054,7 +2054,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
     text-align: center;
   }
   .slider-dots {
-    bottom: 25px;
+    bottom: 15px;
   }
   #clubs .content .bottom {
     -webkit-box-pack: center;
@@ -2144,7 +2144,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
     display: none !important;
   }
   #gallery .gallery-slider .slider-dots {
-    background-color: rgba(79, 25, 52, 0.5);
+    /* background-color: rgba(79, 25, 52, 0.5); */
     padding-top: 12px;
     padding-left: 5px;
     padding-right: 5px;
@@ -2305,7 +2305,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
     font-size: 12px;
   }
   .slider-dots {
-    bottom: 30px;
+    bottom: 15px;
   }
 }
 
@@ -2452,7 +2452,7 @@ p.personal-data input[type="checkbox"]:checked + label:before {
 #services .common_wrapper .slider-arrow {
   width: fit-content;
   height: fit-content;
-  z-index: 10000;
+  z-index: 900;
   cursor: pointer;
   border-radius: 50%;
   background-color: #f4c71b;
